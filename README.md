@@ -9,5 +9,5 @@ Proyecto de e-commerce funcional para venta de café, desarrollado en React y No
 - Otras: Docker (opcional), ngrok (para pruebas/webhooks)
 
 ## Documentación
-- Frontend: ./FRONTEND_INSTRUCTIONS.md  
-- Backend: ./BACKEND_INSTRUCTIONS.md
+- Frontend: [Frontend — Instrucciones](./FRONTEND_INSTRUCTIONS.md)  
+- Backend: [Backend — Instrucciones](./BACKEND_INSTRUCTIONS.md)
