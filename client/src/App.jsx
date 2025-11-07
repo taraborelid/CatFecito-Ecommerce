@@ -14,11 +14,11 @@ import { AdminProfile } from "./pages/AdminProfile";
 import AdminInsert from "./components/adminComponents/AdminInsert";
 import AdminUpdate from "./components/adminComponents/AdminUpdate";
 import AdminDelete from "./components/adminComponents/AdminDelete";
+import AdminOrders from "./components/adminComponents/AdminOrders";
 import ProfileInfo from "./components/profileComponents/ProfileInfo";
 import ProfileOrders from "./components/profileComponents/ProfileOrders";
 import ProfileAddress from "./components/profileComponents/ProfileAddress";
 import { CheckoutPage } from "./pages/CheckoutPage";
-import AdminOrders from "./components/adminComponents/AdminOrders";
 
 
 function FloatingCartWrapper({ isOpen, onCloseCart, ...rest }) {
