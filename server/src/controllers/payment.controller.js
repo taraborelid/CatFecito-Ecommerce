@@ -70,19 +70,31 @@ export async function createPreference(req, res) {
 
     // Configurar preferencia de pago (SIN back_urls ni notification_url para desarrollo local)
     const backendUrl = process.env.BACKEND_URL || "http://localhost:3000"; 
+    const frontendUrl = process.env.FRONTEND_URL || process.env.CLIENT_URL || "http://localhost:5173";
+    
+    const backUrls = {
+      success: `${frontendUrl}/checkout?payment=success&order_id=${order_id}`,
+      failure: `${frontendUrl}/checkout?payment=failure&order_id=${order_id}`,
+      pending: `${frontendUrl}/checkout?payment=pending&order_id=${order_id}`
+    };
+
     const preferenceData = {
-      items: items,
+      items: items.map(item => ({
+        title: item.product_name,
+        quantity: item.quantity,
+        unit_price: parseFloat(item.price),
+        currency_id: process.env.CURRENCY_ID || "ARS"
+      })),
       payer: {
         name: order.user_name,
-        email: order.user_email,
+        email: order.user_email
       },
       external_reference: order_id.toString(),
-      notification_url: `${backendUrl}/api/payments/webhook`,
+      notification_url: `${process.env.BACKEND_URL}/api/payments/webhook`,
       statement_descriptor: "CATFECITO",
-      metadata: {
-        order_id: order_id,
-        user_id: userId,
-      },
+      metadata: { order_id, user_id: userId },
+      back_urls: backUrls,
+      auto_return: "approved"
     };
 
     // Crear preferencia en MercadoPago

@@ -65,6 +65,11 @@ export const CheckoutPage = ({
     if (paymentStatus === 'success') {
       navigate('/profile/orders?payment=success&order_id=' + orderId);
     }
+    // Si el pago está pendiente, mostrar aviso
+    if (paymentStatus === 'pending' && orderId) {
+      setError('⏳ Tu pago está pendiente de aprobación. Te notificaremos cuando se confirme.');
+      window.history.replaceState({}, '', '/checkout');
+    }
   }, [paymentStatus, orderId, navigate]);
 
   // Cargar dirección predeterminada del usuario
