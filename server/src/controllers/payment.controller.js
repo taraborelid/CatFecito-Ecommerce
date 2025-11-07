@@ -69,7 +69,7 @@ export async function createPreference(req, res) {
     }));
 
     // Configurar preferencia de pago (SIN back_urls ni notification_url para desarrollo local)
-    const backendUrl = process.env.BACKEND_URL || "http://localhost:3000"; // Asegúrate de tener la URL de tu backend
+    const backendUrl = process.env.BACKEND_URL || "http://localhost:3000"; 
     const preferenceData = {
       items: items,
       payer: {
@@ -77,7 +77,7 @@ export async function createPreference(req, res) {
         email: order.user_email,
       },
       external_reference: order_id.toString(),
-      notification_url: `${backendUrl}/api/payments/webhook`, // ← Agregar esta línea
+      notification_url: `${backendUrl}/api/payments/webhook`,
       statement_descriptor: "CATFECITO",
       metadata: {
         order_id: order_id,
@@ -225,7 +225,7 @@ export async function webhook(req, res) {
             const N8N_URL = process.env.N8N_WEBHOOK_LOCAL || process.env.N8N_WEBHOOK_URL;
             if (N8N_URL) {
               
-              // ¡¡QUITAMOS EL AWAIT DE AQUÍ!!
+              // Enviar notificación a n8n (fire-and-forget)
               fetch(N8N_URL, {
                 method: "POST",
                 headers: {
