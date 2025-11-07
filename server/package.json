@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "proxy": "node local-proxy/proxy.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "ecommerce",
@@ -15,16 +15,15 @@
     "postgresql",
     "jwt"
   ],
-  "author": "",
+  "author": "CodeTitans - UTN",
   "license": "ISC",
   "description": "Backend para e-commerce Catfecito usando PERN Stack",
   "dependencies": {
     "bcrypt": "^6.0.0",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
-    "dotenv": "^17.2.2",
+    "dotenv": "^17.2.3",
     "express": "^5.1.0",
-    "express-validator": "^7.2.1",
-    "http-proxy-middleware": "^3.0.5",
     "jsonwebtoken": "^9.0.2",
     "mercadopago": "^2.9.0",
     "morgan": "^1.10.1",
