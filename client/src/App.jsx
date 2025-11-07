@@ -11,14 +11,14 @@ import ModalContainer from "./components/Modal/ModalContainer";
 import { useState, useEffect } from 'react';
 import { Profile } from "./pages/Profile";
 import { AdminProfile } from "./pages/AdminProfile";
-import AdminInsert from "./components/admincomponents/AdminInsert";
-import AdminUpdate from "./components/admincomponents/AdminUpdate";
-import AdminDelete from "./components/admincomponents/AdminDelete";
+import AdminInsert from "./components/adminComponents/AdminInsert";
+import AdminUpdate from "./components/adminComponents/AdminUpdate";
+import AdminDelete from "./components/adminComponents/AdminDelete";
 import ProfileInfo from "./components/profileComponents/ProfileInfo";
 import ProfileOrders from "./components/profileComponents/ProfileOrders";
 import ProfileAddress from "./components/profileComponents/ProfileAddress";
 import { CheckoutPage } from "./pages/CheckoutPage";
-import AdminOrders from "./components/admincomponents/AdminOrders";
+import AdminOrders from "./components/adminComponents/AdminOrders";
 
 
 function FloatingCartWrapper({ isOpen, onCloseCart, ...rest }) {
