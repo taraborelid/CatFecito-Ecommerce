@@ -26,3 +26,4 @@ export const ConstructionComponent = () => {
   )
 }
 
+export default ConstructionComponent;
