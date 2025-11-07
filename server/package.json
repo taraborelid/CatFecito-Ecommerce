@@ -4,9 +4,11 @@
   "main": "src/index.js",
   "type": "module",
   "scripts": {
-    "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/index.js"
+  },
+  "engines": {
+    "node": ">=20 <23"
   },
   "keywords": [
     "ecommerce",
