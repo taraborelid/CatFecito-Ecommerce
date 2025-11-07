@@ -56,19 +56,16 @@ export const CheckoutPage = ({
     };
   // Manejar retorno de pago fallido
   useEffect(() => {
-    if (paymentStatus === 'failure' && orderId) {
+    if (!paymentStatus || !orderId) return;
+
+    if (paymentStatus === 'failure') {
       setError('❌ El pago no se pudo completar. Por favor, intenta nuevamente.');
-      // Limpiar parámetros de URL
       window.history.replaceState({}, '', '/checkout');
-    }
-    // Si el pago fue exitoso, redirigir a mis órdenes
-    if (paymentStatus === 'success') {
+    } else if (paymentStatus === 'pending') {
+      setError('⏳ Tu pago está pendiente. Te avisaremos cuando se apruebe.');
+      window.history.replaceState({}, '', '/checkout');
+    } else if (paymentStatus === 'success') {
       navigate('/profile/orders?payment=success&order_id=' + orderId);
-    }
-    // Si el pago está pendiente, mostrar aviso
-    if (paymentStatus === 'pending' && orderId) {
-      setError('⏳ Tu pago está pendiente de aprobación. Te notificaremos cuando se confirme.');
-      window.history.replaceState({}, '', '/checkout');
     }
   }, [paymentStatus, orderId, navigate]);
 

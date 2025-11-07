@@ -8,7 +8,6 @@ export async function createPreference(req, res) {
   const userId = req.user.id;
   const { order_id } = req.body;
 
-  // Validación
   if (!order_id) {
     return res.status(400).json({
       message: "El order_id es requerido",
@@ -68,43 +67,43 @@ export async function createPreference(req, res) {
       currency_id: CURRENCY_ID,
     }));
 
-    // Configurar preferencia de pago (SIN back_urls ni notification_url para desarrollo local)
-    const backendUrl = process.env.BACKEND_URL || "http://localhost:3000"; 
+    // URLs
     const frontendUrl = process.env.FRONTEND_URL || process.env.CLIENT_URL || "http://localhost:5173";
-    
+    const backendUrl = process.env.BACKEND_URL || "http://localhost:5000";
+    const isHttpsFrontend = /^https:\/\//i.test(frontendUrl);
+
     const backUrls = {
       success: `${frontendUrl}/checkout?payment=success&order_id=${order_id}`,
       failure: `${frontendUrl}/checkout?payment=failure&order_id=${order_id}`,
-      pending: `${frontendUrl}/checkout?payment=pending&order_id=${order_id}`
+      pending: `${frontendUrl}/checkout?payment=pending&order_id=${order_id}`,
     };
 
     const preferenceData = {
-      items: items.map(item => ({
-        title: item.product_name,
-        quantity: item.quantity,
-        unit_price: parseFloat(item.price),
-        currency_id: process.env.CURRENCY_ID || "ARS"
+      items: items.map(it => ({
+        title: it.title,
+        quantity: it.quantity,
+        unit_price: it.unit_price,
+        currency_id: it.currency_id,
       })),
       payer: {
         name: order.user_name,
-        email: order.user_email
+        email: order.user_email,
       },
       external_reference: order_id.toString(),
-      notification_url: `${process.env.BACKEND_URL}/api/payments/webhook`,
+      notification_url: `${backendUrl}/api/payments/webhook`,
       statement_descriptor: "CATFECITO",
       metadata: { order_id, user_id: userId },
       back_urls: backUrls,
-      auto_return: "approved"
+      ...(isHttpsFrontend ? { auto_return: "approved" } : {}), // solo en HTTPS
     };
 
-    // Crear preferencia en MercadoPago
     console.log("🔵 Enviando preferencia a MercadoPago:", JSON.stringify(preferenceData, null, 2));
     const result = await preference.create({ body: preferenceData });
-    console.log("✅ Respuesta de MercadoPago:", JSON.stringify(result, null, 2));
-    // SDK puede devolver distintas formas según versión
-    const prefId = result?.id || result?.body?.id;
-    const initPoint = result?.init_point || result?.body?.sandbox_init_point;
-    const sandboxInitPoint = result?.sandbox_init_point || result?.body?.sandbox_init_point;
+
+    // Extracción segura de datos según SDK
+    const prefId = result?.body?.id ?? result?.id;
+    const initPoint = result?.body?.init_point ?? result?.init_point;
+    const sandboxInitPoint = result?.body?.sandbox_init_point ?? result?.sandbox_init_point;
 
     if (!prefId) {
       throw new Error("No se obtuvo 'id' de la preferencia de MercadoPago");
@@ -259,10 +258,6 @@ export async function webhook(req, res) {
 
           // La transacción continúa y hace COMMIT inmediatamente
           console.log(`✅ Orden ${externalReference} marcada como pagada, stock decrementado y carrito vaciado`);
-
-        } else if (status === "rejected") {
-
-      console.log(`✅ Orden ${externalReference} marcada como pagada, stock decrementado y carrito vaciado`);
     } else if (status === "rejected") {
       await client.query(
         `UPDATE orders
@@ -271,10 +266,8 @@ export async function webhook(req, res) {
          WHERE id = $1`,
         [externalReference]
       );
-
       console.log(`❌ Pago rechazado para orden ${externalReference}`);
     } else {
-      // Otros estados (pending, in_process, etc.)
       await client.query(
         `UPDATE orders
          SET payment_status = $1,
@@ -282,7 +275,6 @@ export async function webhook(req, res) {
          WHERE id = $2`,
         [status || 'pending', externalReference]
       );
-
       console.log(`ℹ️ Pago estado '${status}' para orden ${externalReference}`);
     }
 
