@@ -25,3 +25,20 @@ export const ConstructionComponent = () => {
     </div>
   )
 }
+
+export default function ConstructionComponent() {
+  const images = [Gatito1, Gatito2, Gatito3];
+  const randomIndex = Math.floor(Math.random() * images.length);
+
+  return (
+    <div className="construction-container">
+      <img
+        src={images[randomIndex]}
+        alt="Gatito en taza"
+        className="construction-image"
+      />
+      <h3 className="construction-title">Proximamente</h3>
+      <h5 className="construction-subtitle">Disculpe las molestias</h5>
+    </div>
+  );
+}
