@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../../styles/ModalContainer.css';
 import { Login } from '../../pages/Login';
 import { Register } from '../../pages/Register';
-import { ConstructionComponent } from '../constructionComponent/constructionComponent';
+import ConstructionComponent from '../constructionComponent/ConstructionComponent';
 import { LogoutPopUpComponent } from '../LogoutPopUpComponent/LogoutPopUpComponent';
 
 export const ModalContainer = ({ type, visible, onClose, onSwitch, onSuccess }) => {
