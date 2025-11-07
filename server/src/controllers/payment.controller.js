@@ -1,6 +1,14 @@
 import { pool } from "../db.js";
 import { preference, payment } from "../libs/mercadopago.js";
 
+// Normalizador de orígenes (https y sin barra final)
+const ensureOrigin = (url) => {
+  if (!url) return "";
+  let u = url.trim();
+  if (!/^https?:\/\//i.test(u)) u = `https://${u}`;
+  return u.replace(/\/+$/, "");
+};
+
 // FUNCIONES DE PAGO (Usuario autenticado)
 
 // Crear preferencia de pago para una orden
@@ -9,9 +17,7 @@ export async function createPreference(req, res) {
   const { order_id } = req.body;
 
   if (!order_id) {
-    return res.status(400).json({
-      message: "El order_id es requerido",
-    });
+    return res.status(400).json({ message: "El order_id es requerido" });
   }
 
   try {
@@ -50,14 +56,9 @@ export async function createPreference(req, res) {
       [order_id]
     );
 
-    // Moneda configurable (por defecto ARS para testing - cambiar según tu cuenta de MP)
-  const CURRENCY_ID = process.env.CURRENCY_ID || "ARS";
+    const CURRENCY_ID = process.env.CURRENCY_ID || "ARS";
 
-    if (itemsResult.rowCount === 0) {
-      return res.status(400).json({ message: "La orden no tiene ítems" });
-    }
-
-    // Preparar items para MercadoPago
+    // Preparar items
     const items = itemsResult.rows.map((item) => ({
       id: item.id.toString(),
       title: item.product_name,
@@ -67,15 +68,14 @@ export async function createPreference(req, res) {
       currency_id: CURRENCY_ID,
     }));
 
-    // URLs
-    const frontendUrl = process.env.FRONTEND_URL || process.env.CLIENT_URL || "http://localhost:5173";
-    const backendUrl = process.env.BACKEND_URL || "http://localhost:5000";
-    const isHttpsFrontend = /^https:\/\//i.test(frontendUrl);
+    // Orígenes normalizados
+    const FRONTEND_ORIGIN = ensureOrigin(process.env.FRONTEND_URL || process.env.CLIENT_URL || "http://localhost:5173");
+    const BACKEND_ORIGIN  = ensureOrigin(process.env.BACKEND_URL || process.env.RAILWAY_PUBLIC_DOMAIN || "http://localhost:5000");
 
     const backUrls = {
-      success: `${frontendUrl}/checkout?payment=success&order_id=${order_id}`,
-      failure: `${frontendUrl}/checkout?payment=failure&order_id=${order_id}`,
-      pending: `${frontendUrl}/checkout?payment=pending&order_id=${order_id}`,
+      success: `${FRONTEND_ORIGIN}/checkout?payment=success&order_id=${order_id}`,
+      failure: `${FRONTEND_ORIGIN}/checkout?payment=failure&order_id=${order_id}`,
+      pending: `${FRONTEND_ORIGIN}/checkout?payment=pending&order_id=${order_id}`,
     };
 
     const preferenceData = {
@@ -90,14 +90,16 @@ export async function createPreference(req, res) {
         email: order.user_email,
       },
       external_reference: order_id.toString(),
-      notification_url: `${backendUrl}/api/payments/webhook`,
+      notification_url: `${BACKEND_ORIGIN}/api/payments/webhook${
+        process.env.MP_WEBHOOK_SECRET ? `?secret=${encodeURIComponent(process.env.MP_WEBHOOK_SECRET)}` : ""
+      }`,
       statement_descriptor: "CATFECITO",
       metadata: { order_id, user_id: userId },
       back_urls: backUrls,
-      ...(isHttpsFrontend ? { auto_return: "approved" } : {}), // solo en HTTPS
+      ...(FRONTEND_ORIGIN.startsWith("https://") ? { auto_return: "approved" } : {}),
     };
 
-    console.log("🔵 Enviando preferencia a MercadoPago:", JSON.stringify(preferenceData, null, 2));
+    console.log("🔵 Preferencia MP:", JSON.stringify(preferenceData, null, 2));
     const result = await preference.create({ body: preferenceData });
 
     // Extracción segura de datos según SDK
@@ -302,16 +304,4 @@ export async function getPaymentStatus(req, res) {
       [order_id, userId]
     );
 
-    if (result.rowCount === 0) {
-      return res.status(404).json({ message: "Orden no encontrada" });
-    }
-
-    return res.status(200).json({
-      success: true,
-      order: result.rows[0],
-    });
-  } catch (error) {
-    console.error("Error en getPaymentStatus:", error);
-    return res.status(500).json({ message: "Error al obtener estado" });
-  }
-}
+    if
