@@ -3,7 +3,7 @@ import React from 'react'
 import Gatito1 from '../../assets/img/Gatito1.png'
 import Gatito2 from '../../assets/img/Gatito2.png'
 import Gatito3 from '../../assets/img/Gatito3.png'
-import './constructionComponent.css'
+import './ConstructionComponent.css'
 
 
 
