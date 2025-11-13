@@ -12,6 +12,9 @@ Tienda online de cafés y accesorios. Frontend en Vercel y backend en Railway, p
 
 ## Funcionalidades
 - Catálogo y detalle de productos
+- Login
+- Register
+- Panel de administración para agregar, editar y eliminar productos
 - Carrito persistente y cálculo de subtotal
 - Checkout con Mercado Pago (success/pending/failure)
 - Webhook para actualización de órdenes
