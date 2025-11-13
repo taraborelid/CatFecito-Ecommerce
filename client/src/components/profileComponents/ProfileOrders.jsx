@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import api from "../../services/api";
 import "./ProfileOrders.css";
-import { resolveImage } from '../utils/image.js';
+import { resolveImage } from '../../utils/image.js';
 
 export default function ProfileOrders() {
   const navigate = useNavigate();

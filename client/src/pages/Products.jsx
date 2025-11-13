@@ -15,7 +15,7 @@ import { ProductFilters } from "../components/ProductsComponents/ProductFilters"
 import { SortBar } from "../components/ProductsComponents/SortBar";
 import { ProductsList } from "../components/ProductsComponents/ProductsList";
 import { Footer } from "../components/FooterComponent/Footer";
-import { resolveImage } from '../utils/image.js';
+import { resolveImage } from '../../utils/image.js';
 
 export const Products = ({ 
   cartItems = [],
