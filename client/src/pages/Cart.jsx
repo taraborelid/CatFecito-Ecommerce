@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Cart.css";
-import { resolveImage } from '../../utils/image.js';
+import { resolveImage } from "../utils/image.js";
 
 export const Cart = ({
   isOpen,

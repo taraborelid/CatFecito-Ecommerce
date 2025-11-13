@@ -6,7 +6,7 @@ import api from '../services/api';
 import { CheckoutButton } from '../components/checkoutPageComponent/CheckoutButton';
 import '../components/checkoutPageComponent/CheckoutButton.css';
 import './CheckoutPage.css';
-import { resolveImage } from '../../utils/image.js';
+import { resolveImage } from '../utils/image.js';
 
 export const CheckoutPage = ({
   cartItems = [],
