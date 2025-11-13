@@ -15,6 +15,7 @@ import { ProductFilters } from "../components/ProductsComponents/ProductFilters"
 import { SortBar } from "../components/ProductsComponents/SortBar";
 import { ProductsList } from "../components/ProductsComponents/ProductsList";
 import { Footer } from "../components/FooterComponent/Footer";
+import { resolveImage } from '../utils/image.js';
 
 export const Products = ({ 
   cartItems = [],
@@ -46,11 +47,11 @@ export const Products = ({
         // Backend devuelve { success, products: [...] }
         const list = Array.isArray(data?.products) ? data.products : (Array.isArray(data) ? data : []);
         const BACKEND_ORIGIN = import.meta.env.VITE_BACKEND_URL ? import.meta.env.VITE_BACKEND_URL.replace(/\/$/, '') : '';
-        const mapped = list.map((p) => ({
+        const mapped = list.map(p => ({
           id: p.id,
           name: p.name,
           price: Number(p.price) || 0,
-          image: `${BACKEND_ORIGIN}${p.image_url}`,
+          image: resolveImage(p.image_url), // ahora soporta Cloudinary o relativo
           stock: typeof p.stock === 'number' ? p.stock : 0,
           // En el front 'type' = categoría
           type: p.category_name || ''

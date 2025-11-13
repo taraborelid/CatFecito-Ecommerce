@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import api from "../../services/api";
 import "./ProfileOrders.css";
+import { resolveImage } from '../utils/image.js';
 
 export default function ProfileOrders() {
   const navigate = useNavigate();
@@ -14,23 +15,8 @@ export default function ProfileOrders() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-  const BACKEND_ORIGIN = import.meta.env.VITE_BACKEND_URL
-    ? import.meta.env.VITE_BACKEND_URL.replace(/\/$/, "")
-    : "";
-
-  const getItemImageSrc = (it) => {
-    if (!it) return "";
-    let v = it.image ?? it.image_url ?? "";
-    if (v && typeof v === "object" && typeof v.url === "string") {
-      v = v.url;
-    }
-    if (typeof v !== "string") return "";
-    const src = v.trim();
-    if (!src) return "";
-    if (src.startsWith("http") || src.startsWith("data:")) return src;
-    if (!BACKEND_ORIGIN) return src;
-    return `${BACKEND_ORIGIN}${src.startsWith("/") ? "" : "/"}${src}`;
-  };
+  
+  const getItemImageSrc = (it) => resolveImage(it?.image || it?.image_url);
 
   // Obtener las órdenes del usuario
   useEffect(() => {

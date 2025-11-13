@@ -2,6 +2,8 @@ import { pool } from "../db.js";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import cloudinary from '../libs/cloudinary.js';
+import stream from 'node:stream';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -90,6 +92,25 @@ export async function getProductsByCategory(req, res) {
   }
 }
 
+// Extraer publicId desde secure_url de Cloudinary
+function getPublicId(url) {
+  if (!url) return null;
+  const m = url.match(/\/upload\/(?:v\d+\/)?([^\.]+)\.[a-zA-Z]{3,5}$/);
+  return m ? m[1] : null;
+}
+
+// Subir buffer a Cloudinary (upload_stream)
+function uploadBufferToCloudinary(buffer, folder = 'catfecito/products') {
+  return new Promise((resolve, reject) => {
+    const pass = new stream.PassThrough();
+    pass.end(buffer);
+    cloudinary.uploader.upload_stream({ folder }, (err, result) => {
+      if (err) reject(err);
+      else resolve(result);
+    }).end(buffer);
+  });
+}
+
 // SOLO ADMIN
 
 // Crear producto (con imagen)
@@ -122,10 +143,10 @@ export async function createProduct(req, res) {
   }
 
   try {
-    // Generar URL de la imagen si existe
     let image_url = null;
-    if (req.file) {
-      image_url = `/uploads/products/${req.file.filename}`;
+    if (req.file?.buffer) {
+      const uploaded = await uploadBufferToCloudinary(req.file.buffer);
+      image_url = uploaded.secure_url;
     }
 
     // Verificar que la categoría existe
@@ -143,24 +164,16 @@ export async function createProduct(req, res) {
 
     // Crear producto
     const result = await pool.query(
-      `INSERT INTO products (name, description, price, stock, category_id, image_url) 
-       VALUES ($1, $2, $3, $4, $5, $6) 
+      `INSERT INTO products (name, description, price, stock, category_id, image_url)
+       VALUES ($1, $2, $3, $4, $5, $6)
        RETURNING id, name, description, price, stock, category_id, image_url, is_active, created_at, updated_at`,
       [name, description, price, stock || 0, category_id, image_url]
     );
 
-    return res.status(201).json({
-      success: true,
-      message: "Producto creado exitosamente",
-      product: result.rows[0],
-    });
+    return res.status(201).json({ success: true, message: 'Producto creado exitosamente', product: result.rows[0] });
   } catch (error) {
-    // Si hay error, eliminar archivo subido
-    if (req.file) {
-      fs.unlinkSync(req.file.path);
-    }
-    console.error("Error en createProduct:", error);
-    return res.status(500).json({ message: "Error al crear producto" });
+    console.error('Error en createProduct:', error);
+    return res.status(500).json({ message: 'Error al crear producto' });
   }
 }
 
@@ -183,30 +196,19 @@ export async function updateProduct(req, res) {
     );
 
     if (currentProduct.rowCount === 0) {
-      if (req.file) {
-        fs.unlinkSync(req.file.path);
-      }
       return res.status(404).json({ message: "Producto no encontrado" });
     }
 
     let image_url = currentProduct.rows[0].image_url;
 
-    // Si hay nueva imagen
-    if (req.file) {
-      // Eliminar imagen anterior si existe
-      if (currentProduct.rows[0].image_url) {
-        const oldRel = currentProduct.rows[0].image_url.replace(/^\/+/, ""); // quitar slash inicial
-        const oldImagePath = path.join(process.cwd(), oldRel);
-        try {
-          if (fs.existsSync(oldImagePath)) {
-            fs.unlinkSync(oldImagePath);
-          }
-        } catch (e) {
-          console.warn('No se pudo eliminar imagen anterior:', oldImagePath, e.message);
-        }
+    if (req.file?.buffer) {
+      // eliminar anterior si era Cloudinary
+      const oldPublicId = getPublicId(image_url);
+      if (oldPublicId) {
+        try { await cloudinary.uploader.destroy(oldPublicId); } catch (e) { console.warn('No se pudo destruir imagen anterior:', e.message); }
       }
-      // Asignar nueva imagen
-      image_url = `/uploads/products/${req.file.filename}`;
+      const uploaded = await uploadBufferToCloudinary(req.file.buffer);
+      image_url = uploaded.secure_url;
     }
 
     // Verificar categoría si se está actualizando
@@ -217,16 +219,13 @@ export async function updateProduct(req, res) {
       );
 
       if (categoryExists.rowCount === 0) {
-        if (req.file) {
-          fs.unlinkSync(req.file.path);
-        }
         return res.status(404).json({ message: "Categoría no encontrada" });
       }
     }
 
     // Actualizar producto
     const result = await pool.query(
-      `UPDATE products 
+      `UPDATE products
        SET name = COALESCE($1, name),
            description = COALESCE($2, description),
            price = COALESCE($3, price),
@@ -239,17 +238,10 @@ export async function updateProduct(req, res) {
       [name, description, price, stock, category_id, image_url, id]
     );
 
-    return res.status(200).json({
-      success: true,
-      message: "Producto actualizado exitosamente",
-      product: result.rows[0],
-    });
+    return res.status(200).json({ success: true, message: 'Producto actualizado exitosamente', product: result.rows[0] });
   } catch (error) {
-    if (req.file) {
-      fs.unlinkSync(req.file.path);
-    }
-    console.error("Error en updateProduct:", error);
-    return res.status(500).json({ message: "Error al actualizar producto" });
+    console.error('Error en updateProduct:', error);
+    return res.status(500).json({ message: 'Error al actualizar producto' });
   }
 }
 
@@ -352,14 +344,9 @@ export async function deleteProduct(req, res) {
 
     // Eliminar imagen del servidor si existe (fuera de la transacción DB)
     const imageUrl = productRes.rows[0].image_url;
-    if (imageUrl) {
-      const imageRel = imageUrl.replace(/^\/+/, "");
-      const imagePath = path.join(process.cwd(), imageRel);
-      try {
-        if (fs.existsSync(imagePath)) fs.unlinkSync(imagePath);
-      } catch (e) {
-        console.warn("No se pudo eliminar imagen del servidor:", imagePath, e.message);
-      }
+    const publicId = getPublicId(imageUrl);
+    if (publicId) {
+      try { await cloudinary.uploader.destroy(publicId); } catch (e) { console.warn('No se pudo eliminar imagen Cloudinary:', e.message); }
     }
 
     return res.status(200).json({

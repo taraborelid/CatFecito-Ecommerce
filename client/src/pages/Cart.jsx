@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Cart.css";
-import "./Cart.css";
+import { resolveImage } from "../utils/image.js";
 
 export const Cart = ({
   isOpen,
@@ -21,10 +21,7 @@ export const Cart = ({
   const freeShippingThreshold = 36355;
   const isEligibleForFreeShipping = subtotal >= freeShippingThreshold;
   const amountForFreeShipping = freeShippingThreshold - subtotal;
-  const BACKEND_ORIGIN = import.meta.env.VITE_BACKEND_URL
-    ? import.meta.env.VITE_BACKEND_URL.replace(/\/$/, "")
-    : "";
-
+  
   const getToken = () =>
     (
       sessionStorage.getItem("authToken") ||
@@ -34,23 +31,7 @@ export const Cart = ({
       .toString()
       .trim();
 
-  const getItemImageSrc = (it) => {
-    if (!it) return "";
-    // Cambiar el nombre a estas variables para mayor claridad
-    let v = it.image ?? it.image_url ?? "";
-    // If object with url property
-    if (v && typeof v === "object" && typeof v.url === "string") {
-      v = v.url;
-    }
-    if (typeof v !== "string") return "";
-    const src = v.trim();
-    if (!src) return "";
-    // Accept absolute URLs and data URLs
-    if (src.startsWith("http") || src.startsWith("data:")) return src;
-    // Ensure BACKEND_ORIGIN exists before concatenation
-    if (!BACKEND_ORIGIN) return src;
-    return `${BACKEND_ORIGIN}${src.startsWith("/") ? "" : "/"}${src}`;
-  };
+  const getItemImageSrc = (it) => resolveImage(it?.image || it?.image_url);
 
   const handleCheckout = () => {
     // Verificar si el usuario está autenticado

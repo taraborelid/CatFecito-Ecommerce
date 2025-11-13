@@ -6,6 +6,7 @@ import api from '../services/api';
 import { CheckoutButton } from '../components/checkoutPageComponent/CheckoutButton';
 import '../components/checkoutPageComponent/CheckoutButton.css';
 import './CheckoutPage.css';
+import { resolveImage } from '../utils/image.js';
 
 export const CheckoutPage = ({
   cartItems = [],
@@ -31,29 +32,12 @@ export const CheckoutPage = ({
   const [error, setError] = useState('');
   const [isLoadingAddress, setIsLoadingAddress] = useState(true);
   const [saveAddress, setSaveAddress] = useState(false); // Checkbox para guardar dirección
-
   const total = useMemo(() => subtotal, [subtotal]);
   const BACKEND_ORIGIN = import.meta.env.VITE_BACKEND_URL ? import.meta.env.VITE_BACKEND_URL.replace(/\/$/, '') : '';
   const getToken = () => (sessionStorage.getItem('authToken') || sessionStorage.getItem('token') || '').toString().trim();
   
+  const getItemImageSrc = (it) => resolveImage(it?.image || it?.image_url);
 
-    // Traemos imagenes de los items del carrito
-    const getItemImageSrc = (it) => {
-    if (!it) return '';
-    let v = it.image ?? it.image_url ?? '';
-    // Si es un objeto con propiedad url
-    if (v && typeof v === 'object' && typeof v.url === 'string') {
-      v = v.url;
-    }
-    if (typeof v !== 'string') return '';
-    const src = v.trim();
-    if (!src) return '';
-    // Aceptar URLs absolutas y data URLs
-    if (src.startsWith('http') || src.startsWith('data:')) return src;
-    // Asegurarse de que BACKEND_ORIGIN exista antes de la concatenación
-    if (!BACKEND_ORIGIN) return src;
-    return `${BACKEND_ORIGIN}${src.startsWith('/') ? '' : '/'}${src}`;
-    };
   // Manejar retorno de pago fallido
   useEffect(() => {
     if (!paymentStatus || !orderId) return;

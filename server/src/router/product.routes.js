@@ -1,15 +1,7 @@
 import { Router } from "express";
 import { verifyToken, verifyAdmin } from "../middlewares/auth.middleware.js";
-import { upload } from "../middlewares/multer.js";
-import {
-  getAllProducts,
-  getProductById,
-  getProductsByCategory,
-  createProduct,
-  updateProduct,
-  toggleProductStatus,
-  deleteProduct,
-} from "../controllers/product.controller.js";
+import { uploadProductImage } from '../middlewares/upload.js';
+import { createProduct, updateProduct, deleteProduct, getAllProducts, getProductById, getProductsByCategory, toggleProductStatus } from '../controllers/product.controller.js';
 
 const router = Router();
 
@@ -23,14 +15,14 @@ router.post(
   "/",
   verifyToken,
   verifyAdmin,
-  upload.single("image"),
+  uploadProductImage.single('image'),
   createProduct
 );
 router.put(
   "/:id",
   verifyToken,
   verifyAdmin,
-  upload.single("image"),
+  uploadProductImage.single('image'),
   updateProduct
 );
 router.patch("/:id/status", verifyToken, verifyAdmin, toggleProductStatus);
