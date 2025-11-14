@@ -1,4 +1,4 @@
-# Catfecito - Demo 
+# CatFecito - Demo 
 
 <img width="1758" alt="image" src="https://github.com/taraborelid/CatFecito-Ecommerce/blob/main/assets/1.png" />
 <img width="1758" alt="image" src="https://github.com/taraborelid/CatFecito-Ecommerce/blob/main/assets/2.png" />
