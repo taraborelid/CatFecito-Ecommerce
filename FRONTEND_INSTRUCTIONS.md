@@ -1,7 +1,5 @@
 # Frontend — Instrucciones para levantar el proyecto (CatFecito)
 
-Estas instrucciones asumen que levantarás el frontend que está en `catfecito-react/CatFecito`.
-
 ## Requisitos
 
 - Node.js >= 18
@@ -13,13 +11,13 @@ Estas instrucciones asumen que levantarás el frontend que está en `catfecito-r
 ### Windows (PowerShell):
 
 ```powershell
-cd catfecito-react\CatFecito; npm install
+cd client; npm install
 ```
 
 ### macOS/Linux (Terminal/Bash):
 
 ```bash
-cd catfecito-react/CatFecito && npm install
+cd client && npm install
 ```
 
 ## 2) Variables/URL del backend
@@ -37,7 +35,7 @@ cd catfecito-react\CatFecito; npm run dev
 ### macOS/Linux (Terminal/Bash):
 
 ```bash
-cd catfecito-react/CatFecito && npm run dev
+cd client && npm run dev
 ```
 
 Por defecto Vite abrirá el sitio en http://localhost:5173 o imprimirá el URL en la consola.
@@ -47,13 +45,13 @@ Por defecto Vite abrirá el sitio en http://localhost:5173 o imprimirá el URL e
 ### Windows (PowerShell):
 
 ```powershell
-cd catfecito-react\CatFecito; npm run build
+cd client; npm run build
 ```
 
 ### macOS/Linux (Terminal/Bash):
 
 ```bash
-cd catfecito-react/CatFecito && npm run build
+cd client && npm run build
 ```
 
 La carpeta `dist/` contendrá los artefactos para servir en un servidor estático.
