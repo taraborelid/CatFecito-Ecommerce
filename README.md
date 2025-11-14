@@ -12,7 +12,7 @@ Imagenes de demostración de la funcionalidades de la store:
 - Frontend: React + Vite, React Router, Axios
 - Backend: Node.js + Express, pg (PostgreSQL), JWT, CORS
 - Pagos: Mercado Pago (preferencias + webhook)
-- Infra: Vercel (FE), Railway (BE + Postgres)
+- Infra: Vercel (FE), Railway (BE + Postgres), Cloudinary(almacenamiento externo para imágenes,), n8n(emails de ordenes)
 
 ## Funcionalidades
 - Catálogo y detalle de productos
