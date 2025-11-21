@@ -4,12 +4,15 @@ Tienda online de cafés y accesorios. Frontend en Vercel y backend en Railway, p
 
 - Live: https://catfecito.vercel.app
 
+Imagenes de demostración de la funcionalidades de la store:
+
+- [CatFecito-demo](./catfecito-demo.md)
 
 ## Tecnologías
 - Frontend: React + Vite, React Router, Axios
 - Backend: Node.js + Express, pg (PostgreSQL), JWT, CORS
 - Pagos: Mercado Pago (preferencias + webhook)
-- Infra: Vercel (FE), Railway (BE + Postgres)
+- Infra: Vercel (FE), Railway (BE + Postgres), Cloudinary(almacenamiento externo para imágenes,), n8n(emails de ordenes)
 
 ## Funcionalidades
 - Catálogo y detalle de productos
