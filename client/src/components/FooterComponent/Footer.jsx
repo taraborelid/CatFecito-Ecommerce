@@ -18,8 +18,8 @@ export const Footer = () => {
       <div className="cf-footer-inner">
         <div className="cf-footer-brand">
           <img src={logo} alt="Catfecito" className="cf-footer-logo" />
-          <p className="cf-footer-desc cf-footer-desc-full">CatFecito - Café con amor. Descubre y compra los mejores granos seleccionados.</p>
-          <p className="cf-footer-desc cf-footer-desc-short">CatFecito - Café con amor.</p>
+          <p className="cf-footer-desc cf-footer-desc-full">CatFecito - Descubre y compra los mejores granos seleccionados.</p>
+          <p className="cf-footer-desc cf-footer-desc-short">CatFecito</p>
         </div>
 
         <div className="cf-footer-links">

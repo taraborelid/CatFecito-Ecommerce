@@ -1,35 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Banner.css';
 import { useNavigate } from 'react-router-dom';
 
-// --- Importa tus imágenes y logo aquí ---
-// Asegúrate de que las rutas sean correctas
-import bannerBackground from '../../assets/img/gato-portada.png'; // La imagen principal con el café
-import catImg from '../../assets/img/cat.png'; // Segunda imagen para el slider
-import logoSvg from '../../assets/img/Group.svg'; // El logo en formato SVG
+import bannerBackground from '../../assets/img/1000149913.jpg';
+import capsulasImg from '../../assets/img/1000149940.jpg';
+import cafePacksImg from '../../assets/img/1000149943.jpg';
 
 export const Banner = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const navigate = useNavigate();
   
-  // Array de objetos para definir cada slide
   const slides = [
     { 
       src: bannerBackground, 
       alt: "Banner principal con café y arte de gato",
-      // Contenido que se superpondrá a la imagen
-      content: {
-        logo: logoSvg,
-        text: "Descubre el sabor único de nuestro café artesanal, preparado con los granos más selectos para tu paladar.",
-        buttonText: "COMPRAR",
-      }
+      clickable: true 
     },
     { 
-      src: catImg, 
-      alt: "Banner secundario" 
+      src: capsulasImg, 
+      alt: "Gato descansando con cápsulas de café",
+      clickable: true
     },
-    // Puedes agregar más slides si lo necesitas
-    // { src: otraImagen, alt: "Tercer banner" }
+    { 
+      src: cafePacksImg, 
+      alt: "Paquetes de café Catfecito",
+      clickable: true
+    },
   ];
 
   const totalSlides = slides.length;
@@ -52,19 +48,25 @@ export const Banner = () => {
   const goToSlide = (index) => {
     showSlide(index);
   };
-  
-  // Descomenta este bloque si quieres que el slider cambie automáticamente
-  /*
+
+  const handleImageClick = () => {
+    if (slides[currentSlide].clickable) {
+      navigate('/products');
+    }
+  };
+
+  // Auto-advance carousel cada 6 segundos
   useEffect(() => {
-    const interval = setInterval(nextSlide, 5000);
+    const interval = setInterval(() => {
+      showSlide(currentSlide + 1);
+    }, 6000);
+
     return () => clearInterval(interval);
   }, [currentSlide]);
-  */
 
   return (
     <div className="hero-slider">
-      <div className="slider-images">
-        {/* Mapeo de las imágenes de fondo del slider */}
+      <div className="slider-images" onClick={handleImageClick} style={{ cursor: slides[currentSlide].clickable ? 'pointer' : 'default' }}>
         {slides.map((slide, index) => (
           <img
             key={index}
@@ -73,20 +75,6 @@ export const Banner = () => {
             className={index === currentSlide ? 'active' : ''}
           />
         ))}
-        
-        {/* Renderiza el contenido superpuesto solo si el slide activo lo tiene */}
-        {slides[currentSlide].content && (
-          <div className="slide-content">
-            <img src={slides[currentSlide].content.logo} alt="Logo Catfecito" className="logo" />
-            <p className="text">{slides[currentSlide].content.text}</p>
-            <button
-              className="buy-button"
-              onClick={() => navigate('/products')}
-            >
-              {slides[currentSlide].content.buttonText}
-            </button>
-          </div>
-        )}
         
         {/* Controles del Slider */}
         <button className="prev" onClick={prevSlide}>

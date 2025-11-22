@@ -3,7 +3,7 @@
 .hero-slider {
   width: 100%;
   height: 760px;
-  padding: 50px 300px;
+  padding: 20px 200px;
   box-sizing: border-box;
 }
 
@@ -125,15 +125,14 @@
   top: 50%;
   transform: translateY(-50%);
   color: white;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: transparent; /* Sin fondo */
   border: none;
-  font-size: 18px;
-  padding: 12px;
+  font-size: 32px; /* Aumenta el tamaño de la flecha para que se vea mejor sin el círculo */
+  padding: 0; /* Sin padding */
   cursor: pointer;
-  border-radius: 50%;
   z-index: 10;
   opacity: 0.7;
-  transition: opacity 0.3s, background-color 0.3s;
+  transition: opacity 0.3s, transform 0.3s;
 }
 
 .slider-images .prev { left: 20px; }
@@ -142,7 +141,7 @@
 .slider-images .prev:hover,
 .slider-images .next:hover {
   opacity: 1;
-  background-color: rgba(0, 0, 0, 0.5);
+  transform: translateY(-50%) scale(1.2); /* Agranda la flecha al hover */
 }
 
 
@@ -166,7 +165,7 @@
     left: 12px;
     max-width: 420px;
     gap: 14px;
-  padding: 12px;
+    padding: 12px;
   }
   .slide-content .logo {
     width: 200px;

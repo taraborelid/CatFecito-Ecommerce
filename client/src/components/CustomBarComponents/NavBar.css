@@ -1,18 +1,16 @@
 .navbar {
   background-color: #f5f0e6;
   box-sizing: border-box;
-  position: relative;
   margin: 0 auto;
   width: 100%;
   display: flex;
   align-items: center;
-  gap: 18px;
-  padding: 2px 24px;            /* espacio lateral dentro del contenido */
-  min-height: 40px;   /* quitar bg interno (el fondo ya está en .header-container) */
-  border: none;               /* quitar borde interno */
-  border-radius: 0;
-  border-bottom: 1px solid rgba(209, 197, 197, 0.12);   /* línea fina más oscura */
-  box-shadow: 0 6px 18px -12px rgba(94, 87, 87, 0.4);
+  gap: 14px;
+  padding: 4px 12px; /* nuevo padding reducido */
+  min-height: 40px;
+  border: none;
+  border-bottom: 1px solid rgba(209,197,197,.12);
+  box-shadow: 0 6px 18px -12px rgba(94,87,87,.4);
 }
 
 .navbar .button {
@@ -27,34 +25,30 @@
   transition: background-color 0.3s ease;
 }
 
-.navbar .button:hover {
-  background-color: rgba(91, 59, 43, 0.1);
-  color: #5b3b2b;
-}
-
 /* Responsive adjustments for NavBar */
 @media (max-width: 576px) {
-  .navbar{ padding: 6px 8px; gap: 8px; overflow-x: auto; }
-  .navbar .button{ padding: 6px 10px; font-size: 13px; }
+  .navbar{ gap: 10px; }
 }
 
 @media (min-width: 577px) and (max-width: 767px) {
-  .navbar{ padding: 8px 12px; gap: 12px }
-  .navbar .button{ padding: 8px 12px; font-size: 14px }
+  .navbar{ gap: 12px; }
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
-  .navbar{ padding: 10px 18px; gap: 14px }
-  .navbar .button{ padding: 8px 14px }
+  .navbar{ gap: 14px; }
 }
 
 @media (min-width: 992px) and (max-width: 1199px) {
-  .navbar{ padding: 12px 20px; gap: 16px }
+  .navbar{ gap: 16px; }
 }
 
 @media (min-width: 1200px) {
-  .navbar{ padding: 14px 24px; gap: 18px }
+  .navbar{ gap: 18px; } /* removido padding que te forzaba 14px 24px */
 }
+
+/* Si prefieres forzar sin tocar media queries anteriores:
+.navbar { padding:4px 12px !important; }
+*/
 
 /* Hide mobile menu and hamburger by default */
 .navbar-hamburger{ display:none; background:none; border:none; cursor:pointer; padding:8px; }
