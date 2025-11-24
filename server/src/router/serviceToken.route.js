@@ -53,7 +53,9 @@ router.get('/orders/:id', validateServiceToken, async (req, res) => {
     const order = orderRes.rows[0];
 
     const itemsRes = await pool.query(
-      `SELECT oi.*, p.name as product_name
+      `SELECT oi.*, 
+              p.name as product_name,
+              p.image_url as product_image_url
        FROM order_items oi
        INNER JOIN products p ON oi.product_id = p.id
        WHERE oi.order_id = $1`,
