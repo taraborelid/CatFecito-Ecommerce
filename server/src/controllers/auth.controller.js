@@ -197,29 +197,32 @@ export async function requestPasswordReset(req, res) {
       [user.id, code, expiresAt]
     );
 
-    // Notificar n8n (fire-and-forget)
+    // ✅ Notificar n8n (fire-and-forget) - PAYLOAD CORREGIDO
     const N8N_URL = process.env.N8N_WEBHOOK_URL_PASSWORD_RESET;
     if (N8N_URL) {
       fetch(N8N_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-Service-Secret": process.env.N8N_WEBHOOK_SECRET || "",
         },
         body: JSON.stringify({
-          type: "password_reset",
           email: user.email,
           name: user.name,
           code,
         }),
       })
         .then((r) => {
-          if (!r.ok)
+          if (!r.ok) {
             console.warn(
-              `n8n respondió ${r.status} al enviar código de recuperación`
+              `⚠️ n8n respondió ${r.status} al enviar código de recuperación`
             );
+          } else {
+            console.log(`✅ Email de recuperación enviado a ${user.email}`);
+          }
         })
-        .catch((err) => console.warn("Error notificando n8n:", err.message));
+        .catch((err) => console.warn("❌ Error notificando n8n:", err.message));
+    } else {
+      console.warn("⚠️ N8N_WEBHOOK_URL_PASSWORD_RESET no está configurado");
     }
 
     return res.json({

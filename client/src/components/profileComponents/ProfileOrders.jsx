@@ -122,7 +122,9 @@ export default function ProfileOrders() {
 
   return (
     <section className="profile-orders">
-  
+      <p style={{ marginBottom: '1rem', color: '#666', fontSize: '14px' }}>
+      Recuerda que esto es una demo. Los datos de las órdenes pagadas podrían aparecer en la carpeta de spam de tu correo.
+      </p>
       {orders.some(o => o.payment_status === 'pending') && (
         <div className="pending-orders-banner">
           <h3>Tienes pagos pendientes</h3>
