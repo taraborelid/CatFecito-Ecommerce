@@ -237,7 +237,7 @@ export async function getOrderById(req, res) {
       `SELECT 
         o.id,
         o.user_id,
-        u.email as user_email,                  -- <-- agregado
+        u.email as user_email,
         o.total,
         o.status,
         o.payment_status,
@@ -260,15 +260,16 @@ export async function getOrderById(req, res) {
             'quantity', oi.quantity,
             'price', oi.price,
             'subtotal', oi.subtotal,
-            'image_url', p.image_url
+            'image_url', p.image_url,
+            'product_image_url', p.image_url
           )
         ) as items
        FROM orders o
-       INNER JOIN users u ON o.user_id = u.id         -- <-- agregado join
+       INNER JOIN users u ON o.user_id = u.id
        INNER JOIN order_items oi ON o.id = oi.order_id
        INNER JOIN products p ON oi.product_id = p.id
        WHERE o.id = $1 AND o.user_id = $2
-       GROUP BY o.id, u.email` ,                      
+       GROUP BY o.id, u.email`,
       [id, userId]
     );
 
@@ -363,7 +364,8 @@ export async function getOrderByIdAdmin(req, res) {
             'quantity', oi.quantity,
             'price', oi.price,
             'subtotal', oi.subtotal,
-            'image_url', p.image_url
+            'image_url', p.image_url,
+            'product_image_url', p.image_url
           )
         ) as items
        FROM orders o
