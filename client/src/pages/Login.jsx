@@ -61,15 +61,35 @@ export const Login = ({ onSwitch, onSuccess }) => {
           autoComplete="current-password"
         />
         <button type="submit">Ingresar</button>
-        <p>
-          ¿No tenés cuenta? {
-            onSwitch ? (
-              <button type="button" className="auth-link-btn" onClick={() => onSwitch('register')}>Registrate</button>
-            ) : (
-              <Link to="/register">Registrate</Link>
-            )
-          }
-        </p>
+
+{onSwitch && (
+  <p style={{ marginTop: '8px', fontSize: '14px', textAlign: 'center' }}>
+    <button
+      type="button"
+      className="auth-link-btn"
+      onClick={() => onSwitch('retrieve')}
+      style={{ 
+        background: 'none',
+        border: 'none',
+        color: '#5b3b2b', 
+        textDecoration: 'underline',
+        cursor: 'pointer'
+      }}
+    >
+      ¿Olvidaste tu contraseña?
+    </button>
+  </p>
+)}
+
+<p>
+  ¿No tenés cuenta? {
+    onSwitch ? (
+      <button type="button" className="auth-link-btn" onClick={() => onSwitch('register')}>Registrate</button>
+    ) : (
+      <Link to="/register">Registrate</Link>
+    )
+  }
+</p>
       </form>
     </main>
   );

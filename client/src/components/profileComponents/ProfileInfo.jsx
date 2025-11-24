@@ -93,7 +93,7 @@ export default function ProfileInfo() {
         )}
       </section>
 
-      <section className="profile-card">
+      <section className="profile-card-1">
         <form className="password-form" onSubmit={handleChangePassword}>
           <label>Contraseña actual</label>
           <input
@@ -121,11 +121,6 @@ export default function ProfileInfo() {
 
           <button type="submit" className="btn-primary">Actualizar contraseña</button>
         </form>
-        <div class="cerrar-sesion-row">
-        <button type="button" className="btn-danger" onClick={handleLogout}>
-          Cerrar sesión
-        </button>
-        </div>
       </section>
     </>
   );

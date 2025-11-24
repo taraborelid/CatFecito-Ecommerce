@@ -6,10 +6,10 @@ export const pool = new Pool({
   database: process.env.DB_NAME || process.env.PGDATABASE || "postgres",
   user: process.env.DB_USER || process.env.PGUSER || "postgres",
   password: process.env.DB_PASSWORD || process.env.PGPASSWORD || "",
-  ssl:
-    process.env.NODE_ENV === "production" || process.env.PGSSLMODE
-      ? { rejectUnauthorized: false }
-      : false,
+  ssl: false,
+    // process.env.NODE_ENV === "production" || process.env.PGSSLMODE
+    //   ? { rejectUnauthorized: false }
+    //   : false,
 });
 
 export async function testDB() {

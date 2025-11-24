@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../../styles/ModalContainer.css';
 import { Login } from '../../pages/Login';
 import { Register } from '../../pages/Register';
+import { RetrievePassword } from '../../pages/RetrievePassword';
 import ConstructionComponent from '../ConstructionComponent/ConstructionComponent';
 import { LogoutPopUpComponent } from '../LogoutPopUpComponent/LogoutPopUpComponent';
 
@@ -31,7 +32,7 @@ export const ModalContainer = ({ type, visible, onClose, onSwitch, onSuccess }) 
     if (isProcessing) {
       return (
         <div style={{ textAlign: 'center', padding: '2rem' }}>
-          <p>Sincronizando carrito...</p>
+          <p>Procesando...</p>
           <div className="spinner" style={{ 
             width: '40px', 
             height: '40px', 
@@ -46,6 +47,7 @@ export const ModalContainer = ({ type, visible, onClose, onSwitch, onSuccess }) 
     }
     if (type === 'login') return <Login onSwitch={onSwitch} onSuccess={handleSuccess} />;
     if (type === 'register') return <Register onSwitch={onSwitch} onSuccess={handleSuccess} />;
+    if (type === 'retrieve') return <RetrievePassword onSuccess={onClose} onBack={() => onSwitch('login')} />;
     if (type === 'construction') return <ConstructionComponent />;
     if (type === 'logout') return <LogoutPopUpComponent />;
     return null;

@@ -82,7 +82,7 @@ export default function ProfileAddress() {
   };
 
   return (
-    <section className="profile-card">
+    <section className="profile-card-2">
       <p style={{ marginBottom: '1rem', color: '#666', fontSize: '14px' }}>
         Esta dirección se utilizará para autocompletar el formulario de envío en futuras compras.
       </p>

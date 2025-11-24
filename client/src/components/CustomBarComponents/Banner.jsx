@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import './Banner.css';
 import { useNavigate } from 'react-router-dom';
 
-import bannerBackground from '../../assets/img/1000149913.jpg';
 import cafePacksImg from '../../assets/img/1000149940.jpg';
 import capsulasImg from '../../assets/img/1000149943.jpg';
 
@@ -15,11 +14,6 @@ export const Banner = () => {
       src: cafePacksImg, 
       alt: "Banner principal con café y arte de gato",
       clickable: true 
-    },
-    { 
-      src: bannerBackground, 
-      alt: "Gato descansando con cápsulas de café",
-      clickable: true
     },
     { 
       src: capsulasImg, 
