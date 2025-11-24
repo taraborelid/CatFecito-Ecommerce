@@ -63,9 +63,6 @@ export default function AdminOrders() {
 
   return (
     <section className="profile-orders-admin">
-      <div className="orders-header">
-        <h2>Pedidos de usuarios</h2>
-      </div>
       {loading && <p>Cargando pedidos…</p>}
       {error && <div className="orders-error">{error}</div>}
       {!loading && !error && (
@@ -104,13 +101,31 @@ export default function AdminOrders() {
                     {orderDetails[o.id] ? (
                       <div className="details-content">
                         <div className="shipping-info">
-                          <h4>Datos del envío</h4>
-                          <p>{orderDetails[o.id].shipping_country}</p>
-                          <p>{orderDetails[o.id].shipping_address}/</p>
-                          <p>{orderDetails[o.id].shipping_city}</p>
-                          <p>{orderDetails[o.id].shipping_state}</p>
-                          <p>{orderDetails[o.id].shipping_zip}</p>
-                          <p>Tel: {orderDetails[o.id].shipping_phone}</p>
+                          <h4> Datos del envío</h4>
+                          <div className="shipping-field">
+                            <span className="label">País:</span>
+                            <span className="value">{orderDetails[o.id].shipping_country || "-"}</span>
+                          </div>
+                          <div className="shipping-field">
+                            <span className="label">Dirección:</span>
+                            <span className="value">{orderDetails[o.id].shipping_address || "-"}</span>
+                          </div>
+                          <div className="shipping-field">
+                            <span className="label">Ciudad:</span>
+                            <span className="value">{orderDetails[o.id].shipping_city || "-"}</span>
+                          </div>
+                          <div className="shipping-field">
+                            <span className="label">Provincia:</span>
+                            <span className="value">{orderDetails[o.id].shipping_state || "-"}</span>
+                          </div>
+                          <div className="shipping-field">
+                            <span className="label">Código postal:</span>
+                            <span className="value">{orderDetails[o.id].shipping_zip || "-"}</span>
+                          </div>
+                          <div className="shipping-field">
+                            <span className="label">Teléfono:</span>
+                            <span className="value">{orderDetails[o.id].shipping_phone || "-"}</span>
+                          </div>
                         </div>
                         <div className="purchase-info">
                           <h4>Datos de la compra</h4>

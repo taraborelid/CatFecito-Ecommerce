@@ -20,13 +20,16 @@
   max-width: 960px;
   margin: 24px auto;
   padding: 0 16px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #f5f0e6;
 }
 
 .profile-title {
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 700;
   color: #5b3b2b;
-  margin: 8px 0 16px;
+  margin: 8px 0 0px;
 }
 
 .profile-card {
@@ -90,16 +93,10 @@
   color: var(--text);
 }
 
-.section-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 12px;
-}
+
 
 .section-title {
   font-size: 18px;
-  margin: 0;
 }
 
 .password-form {
@@ -134,8 +131,10 @@
   background: #5b3b2b;
   color: #fff;
   border: 1px solid #5b3b2b;
-  padding: 10px 14px;
+  padding: 8px 16px;
   border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
   cursor: pointer;
 }
 
@@ -214,16 +213,20 @@
   background: transparent;
   border: 1px solid var(--border);
   color: var(--text);
-  padding: 8px 16px;
-  border-radius: 8px;
   cursor: pointer;
   text-decoration: none;
-  font-size: 14px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
   transition: all 0.2s;
+  margin-top: 8px;
 }
 
 .btn-secondary:hover {
-  background: var(--profile-bg);
+  background: #5b3b2b !important; /* Forzar el hover */
+  color: #fff !important; /* Texto blanco en hover */
+  border-color: #5b3b2b !important; /* Borde coherente */
 }
 
 /* Profile Address Form Styles */
@@ -292,10 +295,9 @@
   margin-bottom: 16px;
 }
 
-.section-title {
+.section-title{
   font-size: 20px;
   font-weight: 700;
-  margin-bottom: 16px;
   color: #5b3b2b;
 }
 
@@ -324,6 +326,10 @@
 
   .cerrar-sesion-row {
     justify-content: stretch;
+  }
+
+  .btn-secondary{
+    margin-top: 8px;
   }
 
   .btn-danger {
@@ -397,7 +403,6 @@
 
   .section-title {
     font-size: 16px;
-    margin-bottom: 10px;
   }
 
   .address-form {

@@ -4,7 +4,7 @@ import { UserHeader } from '../components/usersComponents/UserHeader';
 import MetaData from '../components/ui/MetaData/MetaData';
 import './AdminProfile.css';
 import AdminNav from '../components/adminComponents/AdminNav';
-
+import AdminProductsList from '../components/adminComponents/AdminProductsList';
 
 export const AdminProfile = () => {
 	const navigate = useNavigate();

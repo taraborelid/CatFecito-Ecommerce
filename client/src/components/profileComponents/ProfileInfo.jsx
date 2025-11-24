@@ -94,9 +94,6 @@ export default function ProfileInfo() {
       </section>
 
       <section className="profile-card">
-        <div className="section-header">
-          <h2 className="section-title">Seguridad</h2>
-        </div>
         <form className="password-form" onSubmit={handleChangePassword}>
           <label>Contraseña actual</label>
           <input

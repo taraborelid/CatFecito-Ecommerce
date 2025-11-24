@@ -15,6 +15,7 @@ import AdminInsert from "./components/adminComponents/AdminInsert";
 import AdminUpdate from "./components/adminComponents/AdminUpdate";
 import AdminDelete from "./components/adminComponents/AdminDelete";
 import AdminOrders from "./components/adminComponents/AdminOrders";
+import AdminProductsList from "./components/adminComponents/AdminProductsList";
 import ProfileInfo from "./components/profileComponents/ProfileInfo";
 import ProfileOrders from "./components/profileComponents/ProfileOrders";
 import ProfileAddress from "./components/profileComponents/ProfileAddress";
@@ -146,6 +147,7 @@ function App() {
           <Route path="update" element={<AdminUpdate />} />
           <Route path="delete" element={<AdminDelete />} />
           <Route path="orders" element={<AdminOrders />} />
+          <Route path="AdminProductsList" element={<AdminProductsList />} />
         </Route>
         <Route path="/products" element={<Products 
           cartItems={items}

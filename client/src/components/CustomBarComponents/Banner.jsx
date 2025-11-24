@@ -3,8 +3,8 @@ import './Banner.css';
 import { useNavigate } from 'react-router-dom';
 
 import bannerBackground from '../../assets/img/1000149913.jpg';
-import capsulasImg from '../../assets/img/1000149940.jpg';
-import cafePacksImg from '../../assets/img/1000149943.jpg';
+import cafePacksImg from '../../assets/img/1000149940.jpg';
+import capsulasImg from '../../assets/img/1000149943.jpg';
 
 export const Banner = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -12,17 +12,17 @@ export const Banner = () => {
   
   const slides = [
     { 
-      src: bannerBackground, 
+      src: cafePacksImg, 
       alt: "Banner principal con café y arte de gato",
       clickable: true 
     },
     { 
-      src: capsulasImg, 
+      src: bannerBackground, 
       alt: "Gato descansando con cápsulas de café",
       clickable: true
     },
     { 
-      src: cafePacksImg, 
+      src: capsulasImg, 
       alt: "Paquetes de café Catfecito",
       clickable: true
     },

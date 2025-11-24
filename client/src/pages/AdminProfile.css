@@ -15,28 +15,23 @@
 }
 
 .profile-admin-container {
-  max-width: 960px;
-  margin: 24px auto;
+  max-width: 1400px;
+  margin: 60px auto;
   padding: 0 16px;
   color: #5b3b2b;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #f5f0e6;
 }
 
 .profile-title-admin {
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 700;
   color: #5b3b2b;
-  margin: 8px 0 16px;
+  margin: 8px 0 5px;
 }
 
-.profile-card-admin {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 16px;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
-  color: black;
-}
+
 
 @media (max-width: 576px) {
   .profile-admin-container {
@@ -312,8 +307,10 @@
   background: #5b3b2b;
   color: #fff;
   border: 1px solid #5b3b2b;
-  padding: 10px 14px;
+  padding: 8px 16px;
   border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
   cursor: pointer;
 }
 
@@ -325,12 +322,16 @@
   border-radius: 8px;
   cursor: pointer;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 16px;
+  font-weight: 500;
   transition: all 0.2s;
+  margin-top: 8px; /* Añadido espacio superior */
 }
 
 .btn-secondary-admin:hover {
-  background: var(--profile-bg);
+  background: #5b3b2b !important; /* Forzar el hover */
+  color: #fff !important; /* Texto blanco en hover */
+  border-color: #5b3b2b !important; /* Borde coherente */
 }
 
 @media (max-width: 576px) {
@@ -345,6 +346,11 @@
     font-size: 12px;
     flex: 1;
     min-width: 0;
+    margin-top: 8px; /* Mantener espacio en móvil */
+  }
+  
+  .profile-nav-admin .btn-secondary-admin {
+    margin-top: 0; /* Sin espacio en navegación móvil */
   }
 }
 

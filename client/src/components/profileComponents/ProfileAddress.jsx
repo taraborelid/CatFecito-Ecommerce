@@ -83,9 +83,6 @@ export default function ProfileAddress() {
 
   return (
     <section className="profile-card">
-      <div className="section-header">
-        <h2 className="section-title">Mi Dirección Predeterminada</h2>
-      </div>
       <p style={{ marginBottom: '1rem', color: '#666', fontSize: '14px' }}>
         Esta dirección se utilizará para autocompletar el formulario de envío en futuras compras.
       </p>
