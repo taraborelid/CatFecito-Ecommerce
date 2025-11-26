@@ -102,7 +102,7 @@ export const RetrievePassword = ({ onSuccess, onBack }) => {
               onChange={(e) => setCode(e.target.value.toUpperCase())}
               required
               maxLength={6}
-              style={{ textTransform: 'uppercase', letterSpacing: '2px' }}
+              style={{ textTransform: 'uppercase' }}
               disabled={loading}
             />
 

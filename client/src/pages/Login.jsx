@@ -28,7 +28,7 @@ export const Login = ({ onSwitch, onSuccess }) => {
       }
     } catch (error) {
       console.error('Error logging in:', error);
-      alert(error?.response?.data?.message || 'Error al iniciar sesión');
+      <p className="auth-error">Error al iniciar sesión. Por favor, verifica tus credenciales.</p>
     }
   };
 

@@ -151,16 +151,23 @@ select:-moz-autofill {
 }
 
 .auth-error {
-  background: #f8d7da;
-  border: 1px solid #f5c6cb;
-  color: #721c24;
+  /* Fondo: Un tono crema/marrón muy suave (tipo espuma de café) */
+  background: #fcf4ec; 
+  
+  /* Borde: Un marrón claro para definir la caja */
+  border: 1px solid #e6d0c0; 
+  
+  /* Texto: Un marrón rojizo/oscuro para que se note que es un error pero mantenga el estilo */
+  color: #8f5e45; 
+  
+  /* Lo demás se mantiene igual */
   padding: 12px;
   border-radius: 6px;
   margin-bottom: 16px;
   font-size: 14px;
   text-align: center;
+  font-weight: 500;
 }
-
 .auth-link-btn {
   background: none;
   border: none;
