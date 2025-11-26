@@ -185,7 +185,7 @@ export const Cart = ({
             <div className="checkout-buttons">
               {checkoutError && <p className="cart-error">{checkoutError}</p>}
               {mustLogin && (
-                <div>
+                <>
                   {typeof onOpenAuthModal === "function" ? (
                     <button
                       className="btn-checkout"
@@ -207,7 +207,7 @@ export const Cart = ({
                       Iniciar sesión
                     </button>
                   )}
-                </div>
+                </>
               )}
               <button className="btn-checkout" onClick={handleCheckout}>
                 Pagar Pedido
