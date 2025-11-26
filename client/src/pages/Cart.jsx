@@ -185,7 +185,7 @@ export const Cart = ({
             <div className="checkout-buttons">
               {checkoutError && <p className="cart-error">{checkoutError}</p>}
               {mustLogin && (
-                <div style={{ display: "flex", gap: 8, marginBottom: 8 }}>
+                <div>
                   {typeof onOpenAuthModal === "function" ? (
                     <button
                       className="btn-checkout"
