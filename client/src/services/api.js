@@ -51,4 +51,25 @@ api.interceptors.response.use(
   }
 );
 
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    // Obtenemos la URL original que causó el error
+    const originalRequest = error.config;
+
+    // Si es error 401 Y NO es el intento de login
+    if (
+      error.response && 
+      error.response.status === 401 && 
+      !originalRequest.url.includes('/login') // <--- AGREGA ESTA LÍNEA CLAVE
+    ) {
+      // Aquí está la redirección que te está molestando
+      sessionStorage.removeItem('authToken');
+      window.location.href = '/login'; 
+    }
+    
+    return Promise.reject(error);
+  }
+);
+
 export default api;

@@ -126,7 +126,7 @@
 .order-item .unit-price { color: #666; font-size: 13px; }
 .order-item .order-item-right { display: flex; align-items: center; gap: 8px; }
 .order-item .qty { background: #f1f1f1; border-radius: 6px; padding: 2px 8px; color: #000000; }
-.order-item .subtotal { font-weight: 600; color: #000000; }
+.order-item .subtotal { font-weight: 600; color: #000000; margin-bottom: 0px !important;}
 .order-item .remove { background: transparent; border: none; cursor: pointer; font-size: 16px; }
 
 .order-summary { margin-top: 14px; border-top: 1px solid #eee; padding-top: 12px; display: flex; flex-direction: column; gap: 10px; }

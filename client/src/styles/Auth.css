@@ -69,7 +69,7 @@
 }
 
 .auth-form input:focus {
-  border-color: #b18253; /* tono café (match header links) */
+  border-color: #5A3A1E; /* tono café (match header links) */
 }
 
 .auth-form button[type="submit"] {
@@ -78,7 +78,7 @@
   padding: 0.65rem 0.8rem; /* boton mas compacto */
   border: none;
   border-radius: 8px;
-  background: #b18253; /* color primario café */
+  background: #684322; /* color primario café */
   color: #fff;
   font-weight: 600;
   cursor: pointer;
@@ -86,7 +86,7 @@
 }
 
 .auth-form button[type="submit"]:hover {
-  background: #925f3f;
+  background: #684322;
 }
 
 .auth-form button:disabled {

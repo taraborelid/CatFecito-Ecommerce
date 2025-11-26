@@ -15,6 +15,7 @@ export default function ProfileOrders() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [orderToCancel, setOrderToCancel] = useState(null); // Estado para el modal
   
   const getItemImageSrc = (it) => resolveImage(it?.image || it?.image_url);
 
@@ -27,7 +28,7 @@ export default function ProfileOrders() {
     }
 
     if (paymentStatus === "success" && orderId) {
-      setSuccessMessage(`✅ ¡Pago completado exitosamente! Pedido #${orderId}`);
+      setSuccessMessage(`¡Pago completado exitosamente! Pedido #${orderId}`);
       setTimeout(() => {
         window.history.replaceState({}, "", "/profile/orders");
         setSuccessMessage("");
@@ -77,6 +78,7 @@ export default function ProfileOrders() {
         }));
       } catch (err) {
         console.error("Error al obtener detalles:", err);
+        setError(err?.response?.data?.message || "Error al obtener detalles del pedido");
       }
     }
 
@@ -86,7 +88,6 @@ export default function ProfileOrders() {
   const continuePayment = async (orderId) => {
     try {
       const { data } = await api.post('/payments/create-preference', { order_id: orderId });
-      // mercado pago puede devolver init_point o preference.init_point según SDK/version
       const url = data?.init_point || data?.preference?.init_point || data?.payment_url;
       if (url) {
         window.location.href = url;
@@ -95,28 +96,43 @@ export default function ProfileOrders() {
       }
     } catch (err) {
       console.error(err);
-      alert(err?.response?.data?.message || "Error al crear preferencia de pago");
+      setError(err?.response?.data?.message || "Error al crear preferencia de pago");
     }
   };
   
-  const cancelOrder = async (orderId) => {
-    const ok = window.confirm("¿Seguro querés cancelar este pedido? Esta acción no se puede deshacer.");
-    if (!ok) return;
+  // Abrir modal de confirmación
+  const confirmCancelOrder = (orderId) => {
+    setOrderToCancel(orderId);
+  };
+
+  // Cerrar modal sin cancelar
+  const closeCancelModal = () => {
+    setOrderToCancel(null);
+  };
+
+  // Cancelar pedido (confirmado)
+  const cancelOrder = async () => {
+    if (!orderToCancel) return;
 
     try {
-      const { data } = await api.patch(`/orders/${orderId}/cancel`, {});
+      const { data } = await api.patch(`/orders/${orderToCancel}/cancel`, {});
 
       // actualizar lista localmente
-      setOrders((prev) => prev.map((o) => (o.id === orderId ? { ...o, ...data.order } : o)));
+      setOrders((prev) => prev.map((o) => (o.id === orderToCancel ? { ...o, ...data.order } : o)));
 
       // si ya tenemos detalles cargados, actualizarlos también
       setOrderDetails((prev) => {
-        if (!prev[orderId]) return prev;
-        return { ...prev, [orderId]: { ...prev[orderId], ...data.order } };
+        if (!prev[orderToCancel]) return prev;
+        return { ...prev, [orderToCancel]: { ...prev[orderToCancel], ...data.order } };
       });
+
+      setSuccessMessage(`Pedido #${orderToCancel} cancelado exitosamente`);
+      setTimeout(() => setSuccessMessage(""), 3000);
     } catch (err) {
       console.error("Error al cancelar pedido:", err);
-      alert(err?.response?.data?.message || "No se pudo cancelar el pedido");
+      setError(err?.response?.data?.message || "No se pudo cancelar el pedido");
+    } finally {
+      setOrderToCancel(null); // Cerrar modal
     }
   };
 
@@ -132,7 +148,7 @@ export default function ProfileOrders() {
                 <div><strong>Pedido pendiente: {o.id}</strong></div>
                 <div className="pending-actions">
                   <button onClick={() => continuePayment(o.id)}>Continuar pago</button>
-                  <button onClick={() => cancelOrder(o.id)}>Cancelar pedido</button>
+                  <button onClick={() => confirmCancelOrder(o.id)}>Cancelar pedido</button>
                   <small>Pedido pendiente — se cancelará en ~10 min</small>
                 </div>
               </div>
@@ -242,6 +258,26 @@ export default function ProfileOrders() {
             ))}
           </ul>
         )
+      )}
+
+      {/* Modal de confirmación */}
+      {orderToCancel && (
+        <div className="delete-modal-overlay" onClick={closeCancelModal}>
+          <div className="delete-modal" onClick={(e) => e.stopPropagation()}>
+            <h3 className="delete-modal-title">Confirmar cancelación</h3>
+            <p className="delete-modal-message">
+              ¿Estás seguro de que deseas cancelar el pedido #{orderToCancel}? Esta acción no se puede deshacer.
+            </p>
+            <div className="delete-modal-actions">
+              <button className="delete-modal-btn confirm" onClick={cancelOrder}>
+                Cancelar pedido
+              </button>
+              <button className="delete-modal-btn cancel" onClick={closeCancelModal}>
+                Volver
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </section>
   );

@@ -316,7 +316,7 @@ export const CheckoutPage = ({
                         <div className="qty-container">
                           <div className="qty">{item.quantity}</div>
                         </div>
-                        <div className="subtotal">${Number(item.price * item.quantity).toLocaleString('es-AR')}</div>
+                        <div className="subtotal-order">${Number(item.price * item.quantity).toLocaleString('es-AR')}</div>
                       </div>
                     </div>
                   ))
