@@ -2,7 +2,7 @@
 
 Tienda online de cafés y accesorios. Frontend en Vercel y backend en Railway, pagos con Mercado Pago y base de datos PostgreSQL.
 
-- Live: https://catfecito.vercel.app
+- Live: https://www.catfecito.lat/
 
 Imagenes de demostración de la funcionalidades de la store:
 
