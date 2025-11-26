@@ -11,10 +11,15 @@ export const Register = ({ onSwitch, onSuccess }) => {
   const [password, setPassword]   = useState('');
   const navigate = useNavigate();
 
+  const capitalize = (str) => {
+    if (!str) return "";
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };
+
   const handleRegister = async (e) => {
     e.preventDefault();
     
-    const name = `${firstName} ${lastName}`.trim();
+    const name = `${capitalize(firstName)} ${capitalize(lastName)}`.trim();
 
     try {
         const { data } = await api.post('/auth/register', { 
@@ -38,7 +43,7 @@ export const Register = ({ onSwitch, onSuccess }) => {
       alert(err?.response?.data?.message || 'Error al registrarse');
     }
   };
-
+  
   return (
     <main className="auth-container-register">
       <form className="auth-form" onSubmit={handleRegister}>
