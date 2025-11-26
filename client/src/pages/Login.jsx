@@ -8,6 +8,7 @@ export const Login = ({ onSwitch, onSuccess }) => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -28,7 +29,7 @@ export const Login = ({ onSwitch, onSuccess }) => {
       }
     } catch (error) {
       console.error('Error logging in:', error);
-      <p className="auth-error">Error al iniciar sesión. Por favor, verifica tus credenciales.</p>
+      setError('Error al iniciar sesión. Por favor, verifica tus credenciales.');
     }
   };
 
@@ -60,6 +61,8 @@ export const Login = ({ onSwitch, onSuccess }) => {
           required
           autoComplete="current-password"
         />
+        {error && <p className="auth-error">{error}</p>}
+
         <button type="submit">Ingresar</button>
 
 {onSwitch && (
