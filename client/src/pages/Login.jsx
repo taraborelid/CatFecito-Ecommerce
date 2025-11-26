@@ -12,6 +12,7 @@ export const Login = ({ onSwitch, onSuccess }) => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    e.stopPropagation(); // Prevenir propagación del evento
     setError(null);
     setLoading(true);
 
@@ -37,9 +38,20 @@ export const Login = ({ onSwitch, onSuccess }) => {
       }
     } catch (error) {
       console.error('Error logging in:', error);
-      const errorMessage = error.response?.data?.message || 
-                          error.response?.data?.error ||
-                          'Error al iniciar sesión. Por favor, verifica tus credenciales.';
+      
+      // Manejar diferentes tipos de errores
+      let errorMessage = 'Error al iniciar sesión. Por favor, verifica tus credenciales.';
+      
+      if (error.response) {
+        // Error del servidor (4xx, 5xx)
+        errorMessage = error.response.data?.message || 
+                      error.response.data?.error ||
+                      (error.response.status === 401 ? 'Email o contraseña incorrectos' : errorMessage);
+      } else if (error.request) {
+        // Error de red (sin respuesta del servidor)
+        errorMessage = 'Error de conexión. Verifica tu internet.';
+      }
+      
       setError(errorMessage);
     } finally {
       setLoading(false);

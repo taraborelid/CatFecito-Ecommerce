@@ -33,39 +33,28 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Interceptor para manejar errores de respuesta (ej: token expirado)
+// Interceptor para manejar errores de respuesta (UN SOLO INTERCEPTOR)
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
-      // Token expirado o inválido
+    const originalRequest = error.config;
+    
+    // Solo redirigir a login si:
+    // 1. Es error 401
+    // 2. NO es un intento de login/register/retrieve
+    // 3. NO estamos ya en la página de login
+    const authEndpoints = ['/auth/login', '/auth/register', '/auth/retrieve', '/auth/reset-password'];
+    const isAuthRequest = authEndpoints.some(endpoint => originalRequest?.url?.includes(endpoint));
+    const isLoginPage = window.location.pathname === '/login';
+    
+    if (error.response?.status === 401 && !isAuthRequest && !isLoginPage) {
+      // Token expirado o inválido: limpiar sesión y redirigir
       sessionStorage.removeItem('authToken');
       sessionStorage.removeItem('authUser');
       window.dispatchEvent(new Event('authChanged'));
-      // Redirigir a login si es necesario
-      if (window.location.pathname !== '/login') {
-        window.location.replace('/login');
-      }
-    }
-    return Promise.reject(error);
-  }
-);
-
-api.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    // Obtenemos la URL original que causó el error
-    const originalRequest = error.config;
-
-    // Si es error 401 Y NO es el intento de login
-    if (
-      error.response && 
-      error.response.status === 401 && 
-      !originalRequest.url.includes('/login') // <--- AGREGA ESTA LÍNEA CLAVE
-    ) {
-      // Aquí está la redirección que te está molestando
-      sessionStorage.removeItem('authToken');
-      window.location.href = '/login'; 
+      
+      // Redirigir solo si no estamos procesando autenticación
+      window.location.replace('/login');
     }
     
     return Promise.reject(error);
