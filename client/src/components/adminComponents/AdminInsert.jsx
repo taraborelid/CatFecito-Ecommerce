@@ -61,8 +61,8 @@ export default function AdminInsert() {
 
   return (
     <section className="admin-insert-section">
-      {error && <div className="message error">{error}</div>}
-      {success && <div className="message success">{success}</div>}
+      {error && <div className="message-error">{error}</div>}
+      {success && <div className="message-success">{success}</div>}
       
       <div className="insert-products-table">
         <div className="insert-table-header">

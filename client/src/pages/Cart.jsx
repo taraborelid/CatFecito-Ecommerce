@@ -188,7 +188,7 @@ export const Cart = ({
                   className="checkout-error"
                   style={{ color: "#b00020", marginBottom: 8 }}
                 >
-                  {checkoutError}
+                  {checkoutError && <p className="cart-error">{checkoutError}</p>}
                 </div>
               )}
               {mustLogin && (

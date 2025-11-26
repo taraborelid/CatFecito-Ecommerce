@@ -12,8 +12,6 @@ import { useState, useEffect } from 'react';
 import { Profile } from "./pages/Profile";
 import { AdminProfile } from "./pages/AdminProfile";
 import AdminInsert from "./components/adminComponents/AdminInsert";
-import AdminUpdate from "./components/adminComponents/AdminUpdate";
-import AdminDelete from "./components/adminComponents/AdminDelete";
 import AdminOrders from "./components/adminComponents/AdminOrders";
 import AdminProductsList from "./components/adminComponents/AdminProductsList";
 import ProfileInfo from "./components/profileComponents/ProfileInfo";
@@ -144,8 +142,6 @@ function App() {
         </Route>
         <Route path="/admin" element={<AdminProfile />} >
           <Route path="insert" element={<AdminInsert />} />
-          <Route path="update" element={<AdminUpdate />} />
-          <Route path="delete" element={<AdminDelete />} />
           <Route path="orders" element={<AdminOrders />} />
           <Route path="AdminProductsList" element={<AdminProductsList />} />
         </Route>

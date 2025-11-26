@@ -83,6 +83,18 @@
   transform: rotate(180deg);
 }
 
+.orders-success{
+  background: #fcf4ec; 
+  border: 1px solid #e6d0c0; 
+  color: #8f5e45; 
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  font-size: 14px;
+  text-align: center;
+  font-weight: 500;
+}
+
 .order-details {
   margin-top: 14px;
   border-top: 1px solid #ddd;

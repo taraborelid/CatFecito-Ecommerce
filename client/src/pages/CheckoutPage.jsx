@@ -43,10 +43,10 @@ export const CheckoutPage = ({
     if (!paymentStatus || !orderId) return;
 
     if (paymentStatus === 'failure') {
-      setError('❌ El pago no se pudo completar. Por favor, intenta nuevamente.');
+      setError('El pago no se pudo completar. Por favor, intenta nuevamente.');
       window.history.replaceState({}, '', '/checkout');
     } else if (paymentStatus === 'pending') {
-      setError('⏳ Tu pago está pendiente. Te avisaremos cuando se apruebe.');
+      setError('Tu pago está pendiente. Te avisaremos cuando se apruebe.');
       window.history.replaceState({}, '', '/checkout');
     } else if (paymentStatus === 'success') {
       navigate('/profile/orders?payment=success&order_id=' + orderId);
@@ -314,9 +314,7 @@ export const CheckoutPage = ({
                       </div>
                       <div className="order-item-right">
                         <div className="qty-container">
-                          
                           <div className="qty">{item.quantity}</div>
-                          
                         </div>
                         <div className="subtotal">${Number(item.price * item.quantity).toLocaleString('es-AR')}</div>
                       </div>
@@ -353,8 +351,8 @@ export const CheckoutPage = ({
                   />
                 </div>
                 ) : isFormComplete ? (
-                  <div className="pay-notice" style={{ backgroundColor: '#e8f5e9', color: '#2e7d32', border: '1px solid #4caf50' }}>
-                    <p>✓ Datos completos. Haz clic en "Continuar al pago" para proceder.</p>
+                  <div className="pay-notice">
+                    <p>Datos completos. Haz clic en "Continuar al pago" para proceder.</p>
                   </div>
                   ) : (
                   <div className="pay-notice">
