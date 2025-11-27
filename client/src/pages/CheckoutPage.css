@@ -118,11 +118,19 @@
   color: #666;
 }
 
+.checkout-page .h2 {
+  color: #5b3b2b;
+}
+
+.checkout-right .h3{
+  color: #5b3b2b;
+}
+
 .order-items { display: flex; flex-direction: column; gap: 10px; max-height: 360px; overflow: auto; }
 .order-item { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .order-item img { width: 56px; height: 56px; object-fit: cover; border-radius: 8px; }
 .order-item .order-item-left { display: flex; align-items: center; gap: 10px; }
-.order-item .name { font-weight: 600; color: #5b3b2b; }
+.order-item .name { font-weight: 600; color: #4e3225; }
 .order-item .unit-price { color: #666; font-size: 13px; }
 .order-item .order-item-right { display: flex; align-items: center; gap: 8px; }
 .order-item .qty { background: #f1f1f1; border-radius: 6px; padding: 2px 8px; color: #000000; }
