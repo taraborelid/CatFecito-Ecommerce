@@ -127,7 +127,7 @@
   color: white;
   background-color: transparent; /* Sin fondo */
   border: none;
-  font-size: 32px; /* Aumenta el tamaño de la flecha para que se vea mejor sin el círculo */
+  font-size: 18px; /* Aumenta el tamaño de la flecha para que se vea mejor sin el círculo */
   padding: 0; /* Sin padding */
   cursor: pointer;
   z-index: 10;
