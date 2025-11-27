@@ -211,7 +211,7 @@ export const CheckoutPage = ({
 
       <main className="checkout-content">
         <section className="checkout-left">
-          <h2>Dirección de facturación</h2>
+          <h2 className="checkout-title">Dirección de facturación</h2>
           <form className="shipping-form" onSubmit={handleSubmit}>
             <div className="form-row">
               <label>País / Región</label>
@@ -294,7 +294,7 @@ export const CheckoutPage = ({
         </section>
 
         <aside className="checkout-right">
-          <h3>Tu pedido</h3>
+          <h3 className="checkout-title">Tu pedido</h3>
           {isLoadingAddress ? (
             <p>Cargando información...</p>
           ) : (

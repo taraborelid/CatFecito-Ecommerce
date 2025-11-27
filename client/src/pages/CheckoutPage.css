@@ -118,13 +118,10 @@
   color: #666;
 }
 
-.checkout-page .h2 {
+.checkout-title {
   color: #5b3b2b;
 }
 
-.checkout-right .h3{
-  color: #5b3b2b;
-}
 
 .order-items { display: flex; flex-direction: column; gap: 10px; max-height: 360px; overflow: auto; }
 .order-item { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
