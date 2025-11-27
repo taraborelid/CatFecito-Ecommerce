@@ -45,7 +45,7 @@
 .auth-form h2 {
   margin: 0 0 1rem;
   font-size: 1.6rem;
-  color: #222;
+  color: #5b3b2b;
 }
 
 .auth-form label {
@@ -78,7 +78,7 @@
   padding: 0.65rem 0.8rem; /* boton mas compacto */
   border: none;
   border-radius: 8px;
-  background: #684322; /* color primario café */
+  background: #6b4532; /* color primario café */
   color: #fff;
   font-weight: 600;
   cursor: pointer;
@@ -86,7 +86,7 @@
 }
 
 .auth-form button[type="submit"]:hover {
-  background: #684322;
+  background: #744b37;
 }
 
 .auth-form button:disabled {
