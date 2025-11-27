@@ -18,7 +18,7 @@
   flex: 1; /* El resto del espacio */
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  gap: 0px;
   min-width: 0; /* Evita overflow */
 }
 
