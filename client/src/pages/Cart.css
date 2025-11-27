@@ -29,7 +29,7 @@
 
 /* Header del carrito */
 .cart-header {
-  background: #5A3A1E;
+  background: #5b3b2b;
   color: white;
   padding: 20px;
   display: flex;
@@ -245,7 +245,7 @@
 }
 
 .btn-checkout {
-  background: #5A3A1E;
+  background: #5b3b2b;
   border: none;
   color: white;
   padding: 12px 20px;
