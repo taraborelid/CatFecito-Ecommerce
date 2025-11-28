@@ -1,12 +1,26 @@
-# CatFecito — E‑commerce
+# CatFecito — E‑commerce Full Stack
 
-Tienda online de cafés y accesorios. Frontend en Vercel y backend en Railway, pagos con Mercado Pago y base de datos PostgreSQL.
+> Plataforma completa de comercio electrónico con gestión de stock, pagos reales y automatización de procesos.
 
-- Live: https://www.catfecito.lat/
+![React](https://img.shields.io/badge/-React-61DAFB?style=flat&logo=react&logoColor=black)
+![Node](https://img.shields.io/badge/-Node.js-339933?style=flat&logo=node.js&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-336791?style=flat&logo=postgresql&logoColor=white)
+![n8n](https://img.shields.io/badge/-n8n-FF6584?style=flat&logo=n8n&logoColor=white)
 
-Imagenes de demostración de la funcionalidades de la store:
+---
 
-- [CatFecito-demo](./catfecito-demo.md)
+## Stack Tecnológico
+
+| Área | Tecnologías |
+| :--- | :--- |
+| **Frontend** | React + Vite, React Router, Axios, CSS Modules. |
+| **Backend** | Node.js + Express, JWT Auth, MVC Architecture. |
+| **Base de Datos** | PostgreSQL (Alojada en Railway). |
+| **Pagos** | **Mercado Pago SDK** (Preferencias + Webhooks). |
+| **Infraestructura** | Vercel (Front), Railway (Back), Cloudinary (Imágenes). |
+| **Automatización** | **n8n** (Emails transaccionales con Resend & DNS custom). |
+
+---
 
 ## Tecnologías
 - Frontend: React + Vite, React Router, Axios
@@ -14,20 +28,28 @@ Imagenes de demostración de la funcionalidades de la store:
 - Pagos: Mercado Pago (preferencias + webhook)
 - Infra: Vercel (FE), Railway (BE + Postgres), Cloudinary(almacenamiento externo para imágenes,), n8n(emails de ordenes)
 
-## Funcionalidades
-- Catálogo y detalle de productos
-- Login
-- Register
-- Panel de administración para agregar, editar y eliminar productos
-- Carrito persistente y cálculo de subtotal
-- Checkout con Mercado Pago (success/pending/failure)
-- Webhook para actualización de órdenes
-- Panel responsive
+---
 
-## Deploy
-- Frontend: Vercel (SPA fallback con `vercel.json`)
-- Backend: Railway (conexión interna a Postgres y `sslmode=require`)
-- DB: PostgreSQL en Railway
+## Funcionalidades
+
+- **Catálogo y detalle de productos:** Navegación fluida y visualización de artículos.
+- **Login / Register:** Autenticación segura de usuarios.
+- **Panel de administración:** Interfaz para agregar, editar y eliminar productos (CRUD).
+- **Carrito persistente:** Cálculo automático de subtotal y guardado de selección.
+- **Checkout con Mercado Pago:** Gestión de estados de pago (success/pending/failure).
+- **Webhook:** Actualización automática de órdenes tras el pago.
+- **Panel de Cliente:** Historial de compras y seguimiento del estado de pedidos.
+- **Diseño Responsive:** Adaptable a móviles y escritorio.
+
+---
+
+## Despliegue (Deploy)
+El proyecto cuenta con una arquitectura de despliegue profesional:
+- **Frontend:** Vercel (Configurado como SPA).
+- **Backend:** Railway (Variables de entorno seguras y SSL).
+- **Dominio:** Configuración de DNS personalizados para `.lat` y verificación de correo.
+
+---
 
 ## Cómo probar el pago en la pagina
 
@@ -49,6 +71,8 @@ Opcional (otros estados):
 - Pendiente: MasterCard 5031 7557 3453 0604 (mismos demás datos).
 
 No necesitas modificar ningún .env ni credenciales en la versión desplegada; todo está en modo sandbox.
+
+---
 
 ## Crear usuario de prueba Mercado Pago (si necesitas uno porqueno procesa el pago con la tarjeta)
 
