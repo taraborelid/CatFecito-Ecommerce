@@ -6,7 +6,7 @@ Tienda online de cafés y accesorios. Frontend en Vercel y backend en Railway, p
 
 Imagenes de demostración de la funcionalidades de la store:
 
-- [CatFecito-demo](./catfecito-demo.pdf)
+- [CatFecito-demo](./catfecito-demo.md)
 
 ## Tecnologías
 - Frontend: React + Vite, React Router, Axios
