@@ -9,12 +9,12 @@
 
 ---
 
-### 🚀 Demo en Vivo
-**🔗 Visitar Tienda:** [https://www.catfecito.lat/](https://www.catfecito.lat/)
+### Demo en Vivo
+** Visitar Tienda:** [https://www.catfecito.lat/](https://www.catfecito.lat/)
 
-### 📸 Galería Visual
+### Galería Visual
 Mira el recorrido completo de la aplicación (Admin, Checkout, Automatizaciones) aquí:
-👉 **[VER DEMO VISUAL Y CARACTERÍSTICAS](./catfecito-demo.md)**
+**[VER DEMO VISUAL Y CARACTERÍSTICAS](./catfecito-demo.md)**
 
 ---
 
