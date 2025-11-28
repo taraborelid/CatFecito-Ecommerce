@@ -97,7 +97,7 @@ export async function createPreference(req, res) {
       ...(isHttpsFrontend ? { auto_return: "approved" } : {}), // solo en HTTPS
     };
 
-    console.log("🔵 Enviando preferencia a MercadoPago:", JSON.stringify(preferenceData, null, 2));
+    console.log("Enviando preferencia a MercadoPago:", JSON.stringify(preferenceData, null, 2));
     const result = await preference.create({ body: preferenceData });
 
     // Extracción segura de datos según SDK
@@ -128,7 +128,7 @@ export async function createPreference(req, res) {
       total: order.total,
     });
   } catch (error) {
-    console.error("❌ Error en createPreference:");
+    console.error("Error en createPreference:");
     console.error("Message:", error?.message);
     console.error("Response data:", JSON.stringify(error?.response?.data, null, 2));
     console.error("Cause:", error?.cause);
@@ -257,7 +257,7 @@ export async function webhook(req, res) {
           }
 
           // La transacción continúa y hace COMMIT inmediatamente
-          console.log(`✅ Orden ${externalReference} marcada como pagada, stock decrementado y carrito vaciado`);
+          console.log(`Orden ${externalReference} marcada como pagada, stock decrementado y carrito vaciado`);
     } else if (status === "rejected") {
       await client.query(
         `UPDATE orders
@@ -275,7 +275,7 @@ export async function webhook(req, res) {
          WHERE id = $2`,
         [status || 'pending', externalReference]
       );
-      console.log(`ℹ️ Pago estado '${status}' para orden ${externalReference}`);
+      console.log(`Pago estado '${status}' para orden ${externalReference}`);
     }
 
     await client.query("COMMIT");
