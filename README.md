@@ -9,6 +9,15 @@
 
 ---
 
+### 🚀 Demo en Vivo
+**🔗 Visitar Tienda:** [https://www.catfecito.lat/](https://www.catfecito.lat/)
+
+### 📸 Galería Visual
+Mira el recorrido completo de la aplicación (Admin, Checkout, Automatizaciones) aquí:
+👉 **[VER DEMO VISUAL Y CARACTERÍSTICAS](./catfecito-demo.md)**
+
+---
+
 ## Stack Tecnológico
 
 | Área | Tecnologías |
