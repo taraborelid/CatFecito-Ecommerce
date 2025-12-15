@@ -47,7 +47,7 @@ export const Cart = ({
   // Si el usuario inicia sesión vía modal mientras el carrito está abierto,
   // limpiar el aviso automáticamente cuando aparezca el token.
   useEffect(() => {
-    if (mustLogin && getToken()) {
+    if (mustLogin && isAuthenticated()) {
       setMustLogin(false);
       setCheckoutError("");
     }

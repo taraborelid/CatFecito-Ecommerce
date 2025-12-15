@@ -56,8 +56,7 @@ export const CheckoutPage = ({
   // Cargar dirección predeterminada del usuario
   useEffect(() => {
     const loadUserAddress = async () => {
-      const token = getToken();
-      if (!token) {
+      if (!isAuthenticated()) {
         setIsLoadingAddress(false);
         return;
       }
@@ -139,8 +138,7 @@ export const CheckoutPage = ({
       return;
     }
 
-    const token = getToken();
-    if (!token) {
+    if (!isAuthenticated()) {
       setError('Debes iniciar sesión para continuar.');
       return;
     }
