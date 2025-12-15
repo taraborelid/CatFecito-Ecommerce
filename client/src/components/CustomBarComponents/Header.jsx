@@ -21,7 +21,7 @@ export const Header = ({
   onOpenAuthModal = null
 }) => {
 
-  const [isLogged, setIsLogged] = useState(!!sessionStorage.getItem('authToken'));
+  const [isLogged, setIsLogged] = useState(!!sessionStorage.getItem('authUser'));
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
@@ -51,8 +51,8 @@ export const Header = ({
 
   // Hook para gestionar el estado de login
   useEffect(() => {
-    const onStorage = () => setIsLogged(!!sessionStorage.getItem('authToken'));
-    const onAuthChanged = () => setIsLogged(!!sessionStorage.getItem('authToken'));
+    const onStorage = () => setIsLogged(!!sessionStorage.getItem('authUser'));
+    const onAuthChanged = () => setIsLogged(!!sessionStorage.getItem('authUser'));
     window.addEventListener('storage', onStorage);
     window.addEventListener('authChanged', onAuthChanged);
     return () => {
@@ -66,15 +66,11 @@ export const Header = ({
   };
 
   const handleLogout = async () => {
-    const token = sessionStorage.getItem('authToken');
     try {
-      if (token) {
-        await api.post('/auth/logout', {});
-      }
+      await api.post('/auth/logout', {});
     } catch {
       // ignorar errores de logout
     } finally {
-      sessionStorage.removeItem('authToken');
       sessionStorage.removeItem('authUser');
       setIsLogged(false);
       navigate('/');
@@ -89,15 +85,7 @@ export const Header = ({
         if (parsed?.role) return parsed.role;
       }
     } catch { /* noop */ }
-
-    const token = sessionStorage.getItem('authToken');
-    if (!token) return null;
-    try {
-      const payload = JSON.parse(atob(token.split('.')[1] || ''));
-      return payload?.role || null;
-    } catch {
-      return null;
-    }
+    return null;
   };
   
   // Función de búsqueda con debounce
@@ -247,8 +235,8 @@ export const Header = ({
           type="button"
           className="profile-button"
           onClick={() => {
-            const token = sessionStorage.getItem('authToken');
-            if (!token) {
+            const userStored = sessionStorage.getItem('authUser');
+            if (!userStored) {
               if (typeof onOpenAuthModal === 'function') {
                 onOpenAuthModal('login');
                 return;

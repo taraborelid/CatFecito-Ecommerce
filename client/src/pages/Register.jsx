@@ -28,10 +28,9 @@ export const Register = ({ onSwitch, onSuccess }) => {
             password 
         });
 
-    if (data?.token) {
-      sessionStorage.setItem('authToken', data.token);
+    if (data?.user) {
       if (data.user) sessionStorage.setItem('authUser', JSON.stringify(data.user));
-      api.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
+      window.dispatchEvent(new Event('authChanged'));
       if (typeof onSuccess === 'function') return onSuccess(data);
       window.location.replace('/'); // recarga para sincronizar carrito
     } else {

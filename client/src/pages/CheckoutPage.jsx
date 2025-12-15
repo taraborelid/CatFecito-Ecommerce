@@ -34,7 +34,7 @@ export const CheckoutPage = ({
   const [saveAddress, setSaveAddress] = useState(false); // Checkbox para guardar dirección
   const total = useMemo(() => subtotal, [subtotal]);
   const BACKEND_ORIGIN = import.meta.env.VITE_BACKEND_URL ? import.meta.env.VITE_BACKEND_URL.replace(/\/$/, '') : '';
-  const getToken = () => (sessionStorage.getItem('authToken') || sessionStorage.getItem('token') || '').toString().trim();
+  const isAuthenticated = () => !!sessionStorage.getItem('authUser');
   
   const getItemImageSrc = (it) => resolveImage(it?.image || it?.image_url);
 

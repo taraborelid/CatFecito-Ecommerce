@@ -2,6 +2,7 @@ import { pool } from "../db.js";
 import bcrypt from "bcrypt";
 import { signAccessToken } from "../libs/jwt.js";
 import crypto from "crypto";
+import { NODE_ENV } from "../config.js";
 
 function generateCode(length = 6) {
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -42,7 +43,14 @@ export async function register(req, res) {
     const user = result.rows[0];
     const token = await signAccessToken({ id: user.id, role: user.role });
 
-    return res.status(201).json({ user, token });
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: NODE_ENV === "production",
+      sameSite: NODE_ENV === "production" ? "none" : "lax",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
+    return res.status(201).json({ user });
   } catch (error) {
     if (error.code === "23505") {
       return res.status(409).json({ message: "El email ya está registrado" });
@@ -116,13 +124,19 @@ export async function login(req, res) {
       created_at: user.created_at,
     };
 
+    res.cookie("token", token, {
+      httpOnly: true, // JS del front no puede leer esto (Anti-XSS)
+      secure: NODE_ENV === "production", // HTTPS solo en producción
+      sameSite: NODE_ENV === "production" ? "none" : "lax", // Cross-site en prod
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 días (coincide con JWT)
+    });
+
     return res.status(200).json({
       success: true,
       message: `Bienvenido ${user.role === "admin" ? "Administrador" : ""} ${
         user.name
       }`,
       user: userData,
-      token,
       permissions: {
         isAdmin: user.role === "admin",
         canManageUsers: user.role === "admin",
@@ -147,6 +161,14 @@ export async function logout(req, res) {
         req.user.id,
       ]);
     }
+
+    // Limpiamos la cookie
+    res.cookie("token", "", {
+      expires: new Date(0), // Fecha en el pasado para borrarla
+      httpOnly: true,
+      secure: NODE_ENV === "production",
+      sameSite: NODE_ENV === "production" ? "none" : "lax",
+    });
 
     return res.status(200).json({
       success: true,

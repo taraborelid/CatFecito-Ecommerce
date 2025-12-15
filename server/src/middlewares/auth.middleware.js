@@ -3,53 +3,34 @@ import { JWT_SECRET } from "../config.js";
 
 export const verifyToken = async (req, res, next) => {
   try {
-    // Obtener token del header Authorization
-    const authHeader = req.headers.authorization;
-
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      return res.status(401).json({
-        message: "Token no proporcionado",
-      });
-    }
-
-    // Extraer el token (formato: "Bearer TOKEN")
-    const token = authHeader.split(" ")[1];
+    // CAMBIO: Ya no buscamos en headers, buscamos en la cookie
+    const token = req.cookies.token; 
 
     if (!token) {
       return res.status(401).json({
-        message: "Token no proporcionado",
+        message: "No autorizado (Sesión no encontrada)",
       });
     }
 
     // Verificar y decodificar el token
     const decoded = jwt.verify(token, JWT_SECRET);
 
-    // Agregar datos del usuario al request
     req.user = {
       id: decoded.id,
       role: decoded.role,
       email: decoded.email,
     };
 
-    // Continuar al siguiente middleware/controlador
     next();
   } catch (error) {
+    // Si el token es inválido, forzamos el borrado de la cookie
+    res.clearCookie('token');
+
     if (error.name === "TokenExpiredError") {
-      return res.status(401).json({
-        message: "Token expirado",
-      });
+      return res.status(401).json({ message: "La sesión ha expirado" });
     }
 
-    if (error.name === "JsonWebTokenError") {
-      return res.status(401).json({
-        message: "Token inválido",
-      });
-    }
-
-    console.error("Error en verifyToken:", error);
-    return res.status(500).json({
-      message: "Error al verificar token",
-    });
+    return res.status(401).json({ message: "Sesión inválida" });
   }
 };
 

@@ -9,8 +9,8 @@ export const Profile = () => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		const token = sessionStorage.getItem('authToken');
-		if (!token) {
+		const userStored = sessionStorage.getItem('authUser');
+		if (!userStored) {
 			navigate('/login');
 			return;
 		}

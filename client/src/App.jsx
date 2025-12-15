@@ -78,7 +78,6 @@ function App() {
 
     const handleLogoutDueToInactivity = () => {
       // Elimina token y usuario
-      sessionStorage.removeItem('authToken');
       sessionStorage.removeItem('authUser');
       // Muestra modal de logout
       setModalType('logout');

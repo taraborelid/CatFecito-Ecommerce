@@ -1,17 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import api from '../services/api';
 
-const getToken = () => {
-  const ls = sessionStorage.getItem('authToken') || sessionStorage.getItem('token');
-  if (ls) return ls;
-  // fallback: axios default header
-  try {
-    const ax = window?.axios?.defaults?.headers?.common?.Authorization || '';
-    if (ax.startsWith('Bearer ')) return ax.slice(7);
-  } catch {
-    // ignore
-  }
-  return null;
+const isAuthenticated = () => {
+  return !!sessionStorage.getItem('authUser');
 };
 
 const mapServerItem = (row) => ({
@@ -38,9 +29,9 @@ export function useCartLogic() {
       } catch { return []; }
     })();
 
-    const token = getToken();
+    const isAuth = isAuthenticated();
 
-    if (!token) {
+    if (!isAuth) {
       setItems(savedLocal);
       return;
     }
@@ -78,7 +69,7 @@ export function useCartLogic() {
 
   // Persistir local para invitados
   useEffect(() => {
-    if (!getToken()) {
+    if (!isAuthenticated()) {
       sessionStorage.setItem('catfecito-cart', JSON.stringify(items));
     }
   }, [items]);
@@ -98,7 +89,7 @@ export function useCartLogic() {
     });
 
     // sync backend si autenticado
-    if (getToken()) {
+    if (isAuthenticated()) {
       api.post('/cart', { product_id: product.id, quantity: 1 })
       .then((res) => {
         // actualizar item con datos del servidor (ids/cantidades reales)
@@ -126,7 +117,7 @@ export function useCartLogic() {
     // optimista
     setItems(prev => prev.filter(i => i.id !== productId));
 
-    if (getToken() && item?.cartItemId) {
+    if (isAuthenticated() && item?.cartItemId) {
       api.delete(`/cart/${item.cartItemId}`)
         .catch(() => {});
     }
@@ -146,7 +137,7 @@ export function useCartLogic() {
 
     // sync backend si autenticado
     const item = items.find(i => i.id === productId);
-    if (getToken() && item?.cartItemId) {
+    if (isAuthenticated() && item?.cartItemId) {
       if (qty <= 0) {
         api.delete(`/cart/${item.cartItemId}`)
           .catch(() => {});
@@ -159,7 +150,7 @@ export function useCartLogic() {
 
   const clearCart = useCallback(() => {
     setItems([]);
-    if (getToken()) {
+    if (isAuthenticated()) {
       api.delete('/cart').catch(() => {});
     } else {
       sessionStorage.removeItem('catfecito-cart');

@@ -22,21 +22,13 @@ export const Cart = ({
   const isEligibleForFreeShipping = subtotal >= freeShippingThreshold;
   const amountForFreeShipping = freeShippingThreshold - subtotal;
   
-  const getToken = () =>
-    (
-      sessionStorage.getItem("authToken") ||
-      sessionStorage.getItem("token") ||
-      ""
-    )
-      .toString()
-      .trim();
+  const isAuthenticated = () => !!sessionStorage.getItem('authUser');
 
   const getItemImageSrc = (it) => resolveImage(it?.image || it?.image_url);
 
   const handleCheckout = () => {
     // Verificar si el usuario está autenticado
-    const token = getToken();
-    if (!token) {
+    if (!isAuthenticated()) {
       setCheckoutError("Debes iniciar sesión para continuar con el pago.");
       setMustLogin(true);
       return;

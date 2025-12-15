@@ -20,8 +20,8 @@ export default function ProfileAddress() {
   });
 
   useEffect(() => {
-    const token = sessionStorage.getItem('authToken');
-    if (!token) {
+    const userStored = sessionStorage.getItem('authUser');
+    if (!userStored) {
       navigate('/login');
       return;
     }
@@ -44,7 +44,6 @@ export default function ProfileAddress() {
         }
       } catch (e) {
         if (e?.response?.status === 401) {
-          sessionStorage.removeItem('authToken');
           sessionStorage.removeItem('authUser');
           navigate('/login');
           return;

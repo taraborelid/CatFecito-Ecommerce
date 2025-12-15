@@ -19,11 +19,10 @@ export const Login = ({ onSwitch, onSuccess }) => {
     try {
       const { data } = await api.post('/auth/login', { email, password });
       
-      if (data?.token) {
-        sessionStorage.setItem('authToken', data.token);
+      if (data?.success || data?.user) {
+        
         sessionStorage.setItem('authUser', JSON.stringify(data.user));
         window.dispatchEvent(new Event('authChanged'));
-        api.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
         
         // Llamar onSuccess si fue pasado (permite cerrar modal sin navegar)
         if (typeof onSuccess === 'function') {

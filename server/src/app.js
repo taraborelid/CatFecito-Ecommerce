@@ -3,6 +3,9 @@ import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
 import morgan from "morgan";
+import cookieParser from "cookie-parser";
+import { CLIENT_URL } from "./config.js";
+
 import authRoutes from "./router/auth.routes.js";
 import userRoutes from "./router/user.routes.js";
 import categoryRoutes from "./router/category.routes.js";
@@ -17,12 +20,14 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: CLIENT_URL, 
+  credentials: true   
+}))
 
 app.use(morgan("dev"));
-
 app.use(express.json());
-
+app.use(cookieParser()); 
 app.use(express.urlencoded({ extended: false }));
 
 app.get("/", (req, res) =>

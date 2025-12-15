@@ -9,25 +9,17 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 const api = axios.create({
   baseURL: BACKEND_URL ? `${BACKEND_URL}/api` : '/api',
   timeout: 10000, // 10 segundos timeout
+  withCredentials: true
 });
 
 // Interceptor para agregar token de autenticación a todas las peticiones
 api.interceptors.request.use(
   (config) => {
-    const token = sessionStorage.getItem('authToken');
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    
-    // Manejar Content-Type según el tipo de datos
     if (config.data instanceof FormData) {
-      // FormData: dejar que axios/navegador establezca multipart/form-data
       delete config.headers['Content-Type'];
     } else if (config.data && typeof config.data === 'object') {
-      // JSON: establecer application/json
       config.headers['Content-Type'] = 'application/json';
     }
-    
     return config;
   },
   (error) => Promise.reject(error)
@@ -49,8 +41,8 @@ api.interceptors.response.use(
     
     if (error.response?.status === 401 && !isAuthRequest && !isLoginPage) {
       // Token expirado o inválido: limpiar sesión y redirigir
-      sessionStorage.removeItem('authToken');
       sessionStorage.removeItem('authUser');
+      
       window.dispatchEvent(new Event('authChanged'));
       
       // Redirigir solo si no estamos procesando autenticación
