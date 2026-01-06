@@ -27,8 +27,8 @@ Mira el recorrido completo de la aplicación (Admin, Checkout, Automatizaciones)
 | **Backend** | Node.js + Express, JWT Auth, MVC Architecture. |
 | **Base de Datos** | PostgreSQL (Alojada en Railway). |
 | **Pagos** | **Mercado Pago SDK** (Preferencias + Webhooks). |
-| **Infraestructura** | Vercel (Front), Railway (Back), Cloudinary (Imágenes). |
-| **Automatización** | **n8n** (Emails transaccionales con Resend & DNS custom). |
+| **Infraestructura** | Oracle Cloud VPS (Ubuntu + Docker Compose), Nginx (Reverse Proxy/SSL), Vercel (Front), Cloudinary. |
+| **Automatización** | **n8n** Self-hosted (Integración vía red interna Docker), Resend (Transactional Emails). |
 
 ---
 
@@ -36,9 +36,17 @@ Mira el recorrido completo de la aplicación (Admin, Checkout, Automatizaciones)
 - Frontend: React + Vite, React Router, Axios
 - Backend: Node.js + Express, pg (PostgreSQL), JWT, CORS
 - Pagos: Mercado Pago (preferencias + webhook)
-- Infra: Vercel (FE), Railway (BE + Postgres), Cloudinary(almacenamiento externo para imágenes,), n8n(emails de ordenes)
+- Infra: Vercel (FE), Oracle Cloud VPS (Ubuntu/Docker para BE, DB y n8n), Cloudinary (Imágenes).
 
 ---
+
+## ☁️ Infraestructura y DevOps
+Migración de PaaS hacia una **arquitectura basada en Docker sobre un servidor VPS en Oracle Cloud (Ubuntu/AMD)** para control total.
+* **Orquestación con Docker:** Despliegue del stack completo (Node.js, PostgreSQL, Redis, n8n) mediante **Docker Compose**, utilizando volúmenes persistentes y redes aisladas.
+* **Networking Avanzado:** Configuración de **Nginx** como Proxy Reverso para gestión de tráfico HTTPS/WSS con certificados SSL automáticos (Certbot).
+* **Automatización Interna:** Implementación de una instancia self-hosted de **n8n** conectada vía red interna de Docker (`http://n8n:5678`), logrando comunicación backend-to-automation de baja latencia sin exposición pública.
+* **Seguridad (Hardening):** Servidor blindado mediante **UFW Firewall** con política de denegación por defecto, permitiendo únicamente tráfico SSH y Web seguro para proteger la base de datos.
+* **Frontend:** Integración continua desde Vercel conectando a la API alojada en el VPS dedicado.
 
 ## Funcionalidades
 
