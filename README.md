@@ -79,7 +79,7 @@ Dominio:
 - DNS personalizados (.lat)
 - HTTPS activo en frontend y backend
 - Webhooks de Mercado Pago apuntando al VPS
-- 
+
 ---
 
 ## Cómo probar el pago en la pagina
