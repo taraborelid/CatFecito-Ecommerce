@@ -40,7 +40,7 @@ Mira el recorrido completo de la aplicación (Admin, Checkout, Automatizaciones)
 
 ---
 
-## ☁️ Infraestructura y DevOps
+## Infraestructura y DevOps
 Migración de PaaS hacia una **arquitectura basada en Docker sobre un servidor VPS en Oracle Cloud (Ubuntu/AMD)** para control total.
 * **Orquestación con Docker:** Despliegue del stack completo (Node.js, PostgreSQL, Redis, n8n) mediante **Docker Compose**, utilizando volúmenes persistentes y redes aisladas.
 * **Networking Avanzado:** Configuración de **Nginx** como Proxy Reverso para gestión de tráfico HTTPS/WSS con certificados SSL automáticos (Certbot).
@@ -62,18 +62,31 @@ Migración de PaaS hacia una **arquitectura basada en Docker sobre un servidor V
 ---
 
 ## Despliegue (Deploy)
-El proyecto cuenta con una arquitectura de despliegue profesional:
-- **Frontend:** Vercel (Configurado como SPA).
-- **Backend:** Railway (Variables de entorno seguras y SSL).
-- **Dominio:** Configuración de DNS personalizados para `.lat` y verificación de correo.
 
+Frontend:
+- Vercel (Configurado como SPA, CI/CD automático desde Git)
+
+Backend:
+- Oracle Cloud VPS (Ubuntu)
+- Stack dockerizado (Node.js, PostgreSQL, Redis, n8n)
+- Nginx como Reverse Proxy con SSL (Certbot)
+- Variables de entorno gestionadas vía Docker Compose
+
+Base de Datos:
+- PostgreSQL en contenedor Docker con volúmenes persistentes
+
+Dominio:
+- DNS personalizados (.lat)
+- HTTPS activo en frontend y backend
+- Webhooks de Mercado Pago apuntando al VPS
+- 
 ---
 
 ## Cómo probar el pago en la pagina
 
 La app ya está configurada con credenciales de prueba. Solo necesitas usar una tarjeta de test de Mercado Pago:
 
-1. Entra a: https://catfecito.vercel.app
+1. Entra a:  https://www.catfecito.lat/
 2. Añade productos al carrito y procede al checkout.
 3. Elige pagar con tarjeta (Mercado Pago).
 4. Usa estos datos (pago aprobado):
