@@ -26,6 +26,7 @@ html,
 body {
     margin: 0px;
     height: 100%;
+    zoom: 0.9; /* Reduce el tamaño general al 80% */
 }
 
 /* a blue color as a generic focus style */
