@@ -1,7 +1,7 @@
 import "./FeaturedCoffees.css";
-import api from '../../services/api';
+/*import api from '../../services/api';*/
 import { useState, useEffect } from "react";
-import { resolveImage } from '../../utils/image.js';
+/*import { resolveImage } from '../../utils/image.js';*/
 import cafeLocalImg1 from "../../assets/img/1.png";
 import cafeLocalImg2 from "../../assets/img/2.png";
 import cafeLocalImg3 from "../../assets/img/3.png";
@@ -49,16 +49,18 @@ export function FeaturedCoffees() {
     console.log('Navigate ejecutado');
   };
   useEffect(() => {
+    /* 
+        DESACTIVADO TEMPORALMENTE PARA PROBAR EL FRONTEND 
+       
+     */
+    
+    /*
     const controller = new AbortController();
 
     const fetchFeaturedProducts = async () => {
       try {
         const { data } = await api.get('/products', { signal: controller.signal });
-        const list = Array.isArray(data?.products)
-          ? data.products
-          : Array.isArray(data)
-          ? data
-          : [];
+        const list = Array.isArray(data?.products) ? data.products : Array.isArray(data) ? data : [];
 
         const mapped = list.map((p) => ({
           id: p.id,
@@ -75,17 +77,16 @@ export function FeaturedCoffees() {
           const shuffled = inStock.sort(() => 0.5 - Math.random());
           setFeaturedProducts(shuffled.slice(0, 4));
         }
-        // Si no hay productos del backend, el estado mantiene FALLBACK_COFFEES
       } catch (err) {
         if (err.name !== 'CanceledError') {
           console.error("Error al traer productos destacados, usando estáticos:", err);
         }
-        // En caso de error también mantenemos el fallback
       }
     };
 
     fetchFeaturedProducts();
     return () => controller.abort();
+    */
   }, []);
 
   return (
