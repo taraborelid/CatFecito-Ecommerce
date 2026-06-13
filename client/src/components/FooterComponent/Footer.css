@@ -23,8 +23,10 @@
   gap: 140px;
   align-items: flex-start;
   justify-content: space-between;
-  max-width: 1300px;
-  margin: 0 auto 18px;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto 18px auto;
+  
 }
 
 .cf-footer-brand{
@@ -51,6 +53,7 @@
   flex-direction: row;
   gap: 32px;
   flex: 1 1 auto;
+  justify-content: flex-end;
 }
 
 /* Enforce row-based layout for footer link sections across all breakpoints
@@ -216,7 +219,7 @@
   .cf-footer-inner{ flex-direction: row; gap: 48px }
   .cf-footer-brand{ flex: 0 0 260px }
   .cf-footer-logo{ width: 160px }
-  .cf-footer-links{ flex-direction: column; gap: 24px }
+  .cf-footer-links{ flex-direction: left; gap: 24px }
   .cf-footer-links ul{ display:flex; flex-direction: row; gap: 8px; flex-wrap: wrap }
   .cf-footer-bottom{ justify-content: flex-end }
 }

@@ -239,17 +239,19 @@ export const Products = ({
   return (
     <>
       <MetaData title="Café de grano" />
-      <Header
-        cartItems={cartItems}
-        itemCount={itemCount}
-        isCartOpen={isCartOpen}
-        onOpenCart={onOpenCart}
-        onCloseCart={onCloseCart}
-        onUpdateQuantity={onUpdateQuantity}
-        onRemoveItem={onRemoveItem}
-        onOpenAuthModal={onOpenAuthModal}
-      />
+      <div className="sticky-header-wrapper">
+        <Header
+              cartItems={cartItems}
+              itemCount={itemCount}
+              isCartOpen={isCartOpen}
+              onOpenCart={onOpenCart}
+              onCloseCart={onCloseCart}
+              onUpdateQuantity={onUpdateQuantity}
+              onRemoveItem={onRemoveItem}
+              onOpenAuthModal={onOpenAuthModal}
+            />
       <NavBar />
+      </div>
       <ProductBanner />
       <Breadcrumb />
       

@@ -1,0 +1,40 @@
+/* Contenedor principal de la sección */
+.values-banner {
+  background-color: #F5F0E8;
+  padding: 40px 5%;
+}
+
+/* Grilla para distribuir los elementos */
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 32px;
+  width: 100%;
+  max-width: none;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Contenedor del ícono (SVG) */
+.value-icon-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+/* Título de cada valor */
+.value-title {
+  font-weight: 700;
+  font-size: 15px;
+  color: #3B2314;
+  margin: 0 0 6px;
+}
+
+/* Descripción de cada valor */
+.value-desc {
+  font-size: 13.5px;
+  color: #7A6050;
+  line-height: 1.5;
+  margin: 0;
+}

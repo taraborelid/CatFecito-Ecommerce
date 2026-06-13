@@ -1,0 +1,95 @@
+/* Contenedor principal del banner */
+.newsletter-banner {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  margin: 0 5% 56px;
+  min-height: 220px;
+}
+
+/* Imagen de fondo */
+.newsletter-bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Capa de degradado oscuro */
+.newsletter-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(30,15,5,0.82) 0%, rgba(30,15,5,0.55) 55%, transparent 100%);
+}
+
+/* Contenedor del texto y formulario */
+.newsletter-content {
+  position: relative;
+  z-index: 1;
+  padding: 48px 6%;
+  max-width: 520px;
+}
+
+/* Textos */
+.newsletter-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 4px;
+}
+
+.newsletter-highlight {
+  font-size: 30px;
+  font-weight: 800;
+  color: #D4A847;
+  margin: 0 0 14px;
+}
+
+.newsletter-desc {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0 0 24px;
+  line-height: 1.6;
+}
+
+/* Formulario (Input + Botón) */
+.newsletter-form {
+  display: flex;
+  gap: 0;
+  max-width: 400px;
+}
+
+.newsletter-input {
+  flex: 1;
+  padding: 12px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-right: none;
+  border-radius: 6px 0 0 6px;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+}
+
+/* Para que el texto de relleno ("Tu correo electrónico") también se vea bien */
+.newsletter-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.newsletter-btn {
+  background: #3B2314;
+  color: #fff;
+  border: none;
+  border-radius: 0 6px 6px 0;
+  padding: 12px 22px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s ease;
+}
+
+.newsletter-btn:hover {
+  background: #5a3520;
+}

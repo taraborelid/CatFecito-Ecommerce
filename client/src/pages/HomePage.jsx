@@ -3,12 +3,14 @@ import "../styles/index.css";
 import "../styles/App.css";
 import "animate.css";
 import MetaData from "../components/ui/MetaData/MetaData";
-
 import { NavBar } from "../components/CustomBarComponents/NavBar";
 import { Header } from "../components/CustomBarComponents/Header";
-import { Banner } from "../components/CustomBarComponents/Banner";
+import HeroCarousel from "../components/homePageComponent/HeroCarousel";
+import { ValuesBanner } from "../components/ValuesBanner/ValuesBanner";
 import { Footer } from "../components/FooterComponent/Footer";
-
+import {FeaturedCoffees} from "../components/FeaturedCoffees/FeaturedCoffees"
+import {NewsletterBanner} from "../components/NewsletterBanner/NewsletterBanner"
+import {CategoriesSection} from "../components/CategoriesSection/CategoriesSection"
 
 export const HomePage = ({
   cartItems,
@@ -23,7 +25,8 @@ export const HomePage = ({
   return (
     <>
       <MetaData title="Catfecito" />
-      <Header
+      <div className="sticky-header-wrapper">
+        <Header
               cartItems={cartItems}
               itemCount={itemCount}
               isCartOpen={isCartOpen}
@@ -34,7 +37,13 @@ export const HomePage = ({
               onOpenAuthModal={onOpenAuthModal}
             />
       <NavBar />
-      <Banner />
+      </div>
+      
+      <HeroCarousel/>
+      <ValuesBanner/>
+      <FeaturedCoffees/>
+      <NewsletterBanner/>
+      <CategoriesSection/>
       <Footer />
     </>
   );

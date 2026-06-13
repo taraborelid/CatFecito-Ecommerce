@@ -40,17 +40,19 @@ export const ContactPage = ({
   return (
     <>
       <MetaData title="Contacto - CatFecito" />
-      <Header
-        cartItems={cartItems}
-        itemCount={itemCount}
-        isCartOpen={isCartOpen}
-        onOpenCart={onOpenCart}
-        onCloseCart={onCloseCart}
-        onUpdateQuantity={onUpdateQuantity}
-        onRemoveItem={onRemoveItem}
-        onOpenAuthModal={onOpenAuthModal}
-      />
+      <div className="sticky-header-wrapper">
+        <Header
+              cartItems={cartItems}
+              itemCount={itemCount}
+              isCartOpen={isCartOpen}
+              onOpenCart={onOpenCart}
+              onCloseCart={onCloseCart}
+              onUpdateQuantity={onUpdateQuantity}
+              onRemoveItem={onRemoveItem}
+              onOpenAuthModal={onOpenAuthModal}
+            />
       <NavBar />
+      </div>
 
       <main className="contact-page container">
         <section className="contact-hero">

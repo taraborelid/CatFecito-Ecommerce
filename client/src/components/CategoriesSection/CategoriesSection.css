@@ -1,0 +1,82 @@
+/* Contenedor principal */
+.categories-section {
+  padding: 0 5% 64px;
+  background: #fff;
+}
+
+/* Título de la sección */
+.categories-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  color: #5b3b2b;
+  margin: 0 0 10px;
+}
+
+/* Grilla de categorías */
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 24px;
+  width: 100%;
+  max-width: none;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Contenedor circular de la imagen */
+.category-img-container {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Imagen de la categoría */
+.category-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Texto provisorio (placeholder) */
+.category-placeholder {
+  font-size: 11px;
+  color: #A08060;
+  padding: 4px;
+  line-height: 1.3;
+}
+
+/* Nombre de la categoría */
+.category-label {
+  font-weight: 700;
+  font-size: 14.5px;
+  color: #5b3b2b;
+  margin: 0 0 12px;
+}
+
+/* Botón "Ver productos" */
+.category-btn {
+  background: transparent;
+  color: #3B2314;
+  border: 1px solid #3B2314;
+  border-radius: 6px;
+  padding: 8px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Efecto Hover del botón */
+.category-btn:hover {
+  background: #3B2314;
+  color: #fff;
+}
+
+.categories-grid > div:last-child .category-img {
+  transform: scale(0.75); 
+}
