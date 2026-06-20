@@ -277,6 +277,7 @@ export const Products = ({
           <ProductsList 
             products={visibleProducts} 
             onAddToCart={onAddToCart}
+            onOpenCart={onOpenCart}
           />
           
         </main>

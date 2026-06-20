@@ -2,7 +2,7 @@ import React from 'react';
 import { ProductCard } from './ProductCard';
 import './ProductsList.css';
 
-export const ProductsList = ({ products, onAddToCart = () => {} }) => {
+export const ProductsList = ({ products, onAddToCart, onOpenCart = () => {} }) => {
   return (
     <div className="products-list">
       <div className="products-grid">
@@ -11,6 +11,7 @@ export const ProductsList = ({ products, onAddToCart = () => {} }) => {
             key={product.id}
             product={product}
             onAddToCart={onAddToCart}
+            onOpenCart={onOpenCart}
           />
         ))}
       </div>

@@ -1,10 +1,11 @@
 import React from 'react';
 import './ProductCard.css';
 
-export const ProductCard = ({ product, onAddToCart = () => {} }) => {
+export const ProductCard = ({ product, onAddToCart = () => {}, onOpenCart = () => {} }) => {
 
   const handleAddToCart = () => {
     onAddToCart(product);
+    onOpenCart();
     console.log(`${product.name} añadido al carrito`);
   };
 
