@@ -14,8 +14,6 @@
 /* Contenedor principal del carrito */
 .cart-container {
   width: 450px;
-  height: 100vh;
-  max-height: 100vh;
   margin: 0;
   background: #f5f0e6;
   display: flex;
