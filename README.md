@@ -11,7 +11,7 @@
 
 ### Demo en Vivo
 
-**Visitar Tienda:** [https://www.catfecito.lat/](https://www.catfecito.lat/)
+**Visitar Tienda:** [https://catfecito.vercel.app](https://catfecito.vercel.app)
 
 ### Galería Visual
 Mira el recorrido completo de la aplicación (Admin, Checkout, Automatizaciones) aquí:
